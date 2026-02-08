@@ -4,6 +4,13 @@
 name: Deploy MkDocs to GitHub Pages
 
 on:
+  push:
+    branches: [ main ]
+    paths:
+      - "项目/代号梦山/**"
+      - "mkdocs.yml"
+      - "requirements-docs.txt"
+      - ".github/workflows/deploy.yml"
   pull_request:
     types: [ closed ]
     branches: [ main ]
@@ -20,7 +27,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event.pull_request.merged == true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
