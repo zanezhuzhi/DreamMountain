@@ -2,7 +2,8 @@
 id: SYS_ARCH
 version: 1.0.0
 author: DreamMountain Team
-updated: 2026-02-07
+updated: 2026-02-08
+changelog: 双人必过节点限定于非主线；经济模块 Demo/正式版分界
 ---
 
 # 梦山 System Architecture / 系统架构白皮书
@@ -81,7 +82,7 @@ graph TD
     *   **Loop Role**: Goal + Source（定义旅途与进度）
     *   **Input**: 关卡配置
     *   **Output**: 攀登进度、情境解锁条件
-    *   **Feature Scope**: 单段登山、检查点、双人必过节点；❌ 单人可完全替代协作
+    *   **Feature Scope**: 单段登山、检查点；**双人必过节点仅出现于隐藏/分支/双人情境，不在主线**；❌ 单人可完全替代协作
 
 ### 3.2 [MOD_SOCIAL] 社交与关系模块
 > **Design Pillar**: 双人/多人情境是长期锚点
@@ -98,10 +99,11 @@ graph TD
     *   **Output**: 专属情境内容与记忆点
     *   **Feature Scope**: 仅双人/小队可进入的关卡与情境；❌ 单人可替代
 
-### 3.3 [MOD_ECONOMY] 经济与表现 (若存在)
+### 3.3 [MOD_ECONOMY] 经济与表现
 > **Design Pillar**: 情感优先于数值
 
-*   **Economy**: 仅限外观、便捷、非核心；📤 不产出攀爬/协作数值优势；📥 不设 Pay-to-Win 消耗。
+*   **Demo 阶段**: 无需过度考量经济系统。
+*   **正式版**: 经济系统为重要模块，待细化；**边界**：仅限外观、便捷、非核心；📤 不产出攀爬/协作数值优势；📥 不设 Pay-to-Win 消耗。
 
 ---
 
