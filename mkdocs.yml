@@ -1,0 +1,72 @@
+# 代号梦山 — 项目文档站
+# 用法: pip install -r requirements-docs.txt && mkdocs serve
+# 浏览器打开 http://127.0.0.1:8000
+
+site_name: 代号梦山 · 项目文档
+site_description: 梦山 DreamMountain 立项企划、技术架构与设计规范
+site_author: DreamMountain Team
+
+docs_dir: 项目/代号梦山
+site_dir: site
+
+theme:
+  name: material
+  language: zh
+  palette:
+    - scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: 深色模式
+    - scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: 浅色模式
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+
+nav:
+  - 首页: index.md
+  - 项目核心:
+    - 核心概览: 00_项目核心/00_核心概念.md
+    - 愿景: 00_项目核心/01_Vision_愿景.md
+    - 设计支柱: 00_项目核心/02_Pillars_设计支柱.md
+    - 核心循环: 00_项目核心/03_Loops_核心循环.md
+    - 资源流: 00_项目核心/04_ResourceFlow_资源流.md
+    - 系统架构: 00_项目核心/05_SystemArch_系统架构.md
+  - 立项企划:
+    - 创意验证书: 01_立项企划/创意验证书.md
+    - 游戏概念书: 01_立项企划/游戏概念书.md
+  - 技术架构:
+    - 工程技术规范: 02_技术架构/工程技术规范.md
+    - 内容规划规范: 02_技术架构/内容规划规范.md
+    - 网页发布与协作: 02_技术架构/网页发布与协作指南.md
+  - 系统设计:
+    - 攀爬与协作: 03_系统设计/核心玩法规范_攀爬与协作.md
+    - 关系系统: 03_系统设计/系统设计规范_关系系统.md
+  - 内容创作:
+    - 关卡设计(路线与协作节点): 04_内容创作/关卡设计规范_路线与协作节点.md
+  - 数值设计:
+    - 数值设计综述: 05_数值设计/00_数值设计综述.md
+  - 世界观:
+    - 世界观综述: 06_世界观/00_世界观综述.md
