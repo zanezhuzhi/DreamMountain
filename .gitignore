@@ -9,8 +9,9 @@ __pycache__/
 *.egg-info/
 *.egg
 
-# MkDocs 构建输出（由 Actions 在 CI 里生成）
+# MkDocs 构建输出（切勿提交：否则会弄乱根目录、导致路径乱跳）
 site/
+*.txt.txt
 
 # IDE / OS
 .idea/
