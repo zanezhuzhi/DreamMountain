@@ -9,6 +9,11 @@ site_author: DreamMountain Team
 docs_dir: 项目/代号梦山
 site_dir: site
 
+# 显式包含静态文件，确保微信验证文件被包含在构建中
+extra:
+  static_files:
+    - d7b17b90c9cc1b1f95bdc2ec6618980f.txt
+
 theme:
   name: material
   language: zh
