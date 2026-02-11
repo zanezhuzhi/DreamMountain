@@ -12,14 +12,20 @@ __pycache__/
 # MkDocs 构建输出（切勿提交：否则会弄乱根目录、导致路径乱跳）
 site/
 *.txt.txt
+doc_diff.txt
 
 # UE5 工程临时文件（必须配置，防止数百 GB 缓存塞爆 Git）
+# Binaries / Intermediate 每次编译都会重新生成，切勿提交
 src/**/Intermediate/
 src/**/Saved/
 src/**/Binaries/
 src/**/DerivedDataCache/
 src/**/*.sln
 src/**/*.suo
+src/**/*.VC.db
+src/**/*.VC.opendb
+src/**/*.sdf
+src/**/*.opensdf
 src/**/*.xcuserstate
 src/**/.vs/
 

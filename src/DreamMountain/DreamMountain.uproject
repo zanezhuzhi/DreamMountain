@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "????",
+	"Description": "Dream Mountain - ?????????",
+	"Category": "Games",
+	"CreatedBy": "DreamMountain Team",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanAllowXGE": true,
+	"CanAllowNVIDIA": true,
+	"CanAllowAMD": true,
+	"EngineAssociation": "5.7",
+	"bIsEnterpriseProject": false,
+	"Modules": [
+		{
+			"Name": "DreamMountain",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [{"Name": "EnhancedInput", "Enabled": false}],
+	"TargetPlatforms": []
+}
