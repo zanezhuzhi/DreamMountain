@@ -13,6 +13,16 @@ __pycache__/
 site/
 *.txt.txt
 
+# UE5 工程临时文件（必须配置，防止数百 GB 缓存塞爆 Git）
+src/**/Intermediate/
+src/**/Saved/
+src/**/Binaries/
+src/**/DerivedDataCache/
+src/**/*.sln
+src/**/*.suo
+src/**/*.xcuserstate
+src/**/.vs/
+
 # IDE / OS
 .idea/
 .vscode/

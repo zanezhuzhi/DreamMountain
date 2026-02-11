@@ -7,7 +7,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "项目/代号梦山/**"
+      - "docs/**"
       - "mkdocs.yml"
       - "requirements-docs.txt"
       - ".github/workflows/deploy.yml"
@@ -15,7 +15,7 @@ on:
     types: [ closed ]
     branches: [ main ]
     paths:
-      - "项目/代号梦山/**"
+      - "docs/**"
       - "mkdocs.yml"
       - "requirements-docs.txt"
       - ".github/workflows/deploy.yml"

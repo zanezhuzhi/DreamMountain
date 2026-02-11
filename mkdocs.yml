@@ -6,7 +6,7 @@ site_name: 代号梦山 · 项目文档
 site_description: 梦山 DreamMountain 立项企划、技术架构与设计规范
 site_author: DreamMountain Team
 
-docs_dir: 项目/代号梦山
+docs_dir: docs
 site_dir: site
 
 theme:
@@ -81,6 +81,7 @@ nav:
     - 界面规范: 07_资源表现/界面规范.md
     - 资源规范: 07_资源表现/资源规范.md
   - 其他:
+    - 路径结构说明: 08_其他/路径结构说明.md
     - 排版规范: 08_其他/排版规范.md
     - 网页发布与协作: 08_其他/网页发布与协作指南.md
     - 策划更新操作流程: 08_其他/策划更新操作流程.md

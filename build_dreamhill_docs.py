@@ -9,7 +9,7 @@ from pathlib import Path
 
 # 在代码中拼接路径，避免终端编码导致找不到脚本
 project_root = Path(__file__).resolve().parent
-dreamhill_dir = project_root / "项目" / "代号梦山"
+dreamhill_dir = project_root / "docs"
 build_script = dreamhill_dir / "build_docs.py"
 
 if not build_script.exists():
