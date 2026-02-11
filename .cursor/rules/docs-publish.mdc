@@ -1,0 +1,36 @@
+---
+description: 文档发布提醒 — 新增文档后需更新 nav 并推送部署
+globs:
+  - "docs/**"
+alwaysApply: false
+---
+
+# 文档发布流程提醒
+
+当在 `docs/` 下**新增** `.md` 文档时，请按以下流程确保网页可见：
+
+## 1. 更新 mkdocs.yml 导航
+
+在项目根目录的 `mkdocs.yml` 中，将新文档路径加入 `nav` 对应分类下，否则文档不会出现在侧边栏。
+
+```yaml
+# 示例：在「系统设计」下新增
+- 文档标题: 03_系统设计/新文档名.md
+```
+
+## 2. 提交并推送
+
+```bash
+git add docs/xxx.md mkdocs.yml
+git commit -m "docs: 新增 xxx"
+git push origin main
+```
+
+## 3. 部署到网页
+
+- **自动**：推送到 main 后，`.github/workflows/deploy.yml` 会触发，约 2～5 分钟内网页更新。
+- **手动**：若未自动部署，到 GitHub 仓库 → **Actions** → 「Deploy MkDocs to GitHub Pages」→ **Run workflow**。
+
+## 4. 验证
+
+访问 https://zanezhuzhi.github.io/DreamMountain/ 检查新文档是否出现在侧边栏并可访问。
