@@ -1,0 +1,3132 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="梦山 DreamMountain 立项企划、技术架构与设计规范">
+      
+      
+        <meta name="author" content="DreamMountain Team">
+      
+      
+      
+        <link rel="prev" href="../07_%E8%BF%9B%E5%BA%A6%E4%B8%8E%E5%A4%8D%E6%B4%BB%E7%82%B9/">
+      
+      
+        <link rel="next" href="../09_%E5%95%86%E4%B8%9A%E4%BB%98%E8%B4%B9/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>08_关系系统 - 代号梦山 · 项目文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#relation-system-spec" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="代号梦山 · 项目文档" class="md-header__button md-logo" aria-label="代号梦山 · 项目文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            代号梦山 · 项目文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              08_关系系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/00_%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="md-tabs__link">
+          
+  
+  
+  项目核心
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E5%88%9B%E6%84%8F%E9%AA%8C%E8%AF%81%E4%B9%A6/" class="md-tabs__link">
+          
+  
+  
+  立项企划
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83/" class="md-tabs__link">
+          
+  
+  
+  技术架构
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01_%E6%94%80%E7%88%AC%E4%B8%8E%E7%A7%BB%E5%8A%A8/" class="md-tabs__link">
+          
+  
+  
+  系统设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83_%E8%B7%AF%E7%BA%BF%E4%B8%8E%E5%8D%8F%E4%BD%9C%E8%8A%82%E7%82%B9/" class="md-tabs__link">
+          
+  
+  
+  内容创作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1/00_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1%E7%BB%BC%E8%BF%B0/" class="md-tabs__link">
+          
+  
+  
+  数值设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/00_%E4%B8%96%E7%95%8C%E8%A7%82%E7%BB%BC%E8%BF%B0/" class="md-tabs__link">
+          
+  
+  
+  世界观
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/00_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0%E6%80%BB%E5%88%99/" class="md-tabs__link">
+          
+  
+  
+  资源表现
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08_%E5%85%B6%E4%BB%96/%E8%B7%AF%E5%BE%84%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E/" class="md-tabs__link">
+          
+  
+  
+  其他
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="代号梦山 · 项目文档" class="md-nav__button md-logo" aria-label="代号梦山 · 项目文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    代号梦山 · 项目文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目核心
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目核心
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/00_%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/01_Vision_%E6%84%BF%E6%99%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    愿景
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/02_Pillars_%E8%AE%BE%E8%AE%A1%E6%94%AF%E6%9F%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    设计支柱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/03_Loops_%E6%A0%B8%E5%BF%83%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心循环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/04_ResourceFlow_%E8%B5%84%E6%BA%90%E6%B5%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/05_SystemArch_%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    立项企划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    立项企划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E5%88%9B%E6%84%8F%E9%AA%8C%E8%AF%81%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创意验证书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E6%B8%B8%E6%88%8F%E6%A6%82%E5%BF%B5%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏概念书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技术架构
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术架构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程技术规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%86%85%E5%AE%B9%E8%A7%84%E5%88%92%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内容规划规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E6%94%80%E7%88%AC%E4%B8%8E%E7%A7%BB%E5%8A%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01_攀爬与移动
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E5%8D%8F%E4%BD%9C%E4%B8%8E%E6%95%91%E6%8F%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02_协作与救援
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%85%B3%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03_环境与关卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E7%8A%B6%E6%80%81%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04_状态系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_%E9%81%93%E5%85%B7%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05_道具系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_%E7%BB%B3%E7%B4%A2%E4%B8%8E%E6%94%80%E7%99%BB%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06_绳索与攀登工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_%E8%BF%9B%E5%BA%A6%E4%B8%8E%E5%A4%8D%E6%B4%BB%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07_进度与复活点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08_关系系统
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08_关系系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-logical-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 逻辑架构 (Logical Architecture)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 逻辑架构 (Logical Architecture)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 设计原则 (Design Principles)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-relation-state-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 关系状态定义 (Relation State Definition)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-core-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 核心对象 (Core Objects)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-data-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 数据结构 (Data Schema)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-flowchart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 流程图 (Flowchart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-interaction-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 交互细节 (Interaction Design)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-atomic-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 原子规则 (Atomic Rules)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 原子规则 (Atomic Rules)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-relation-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 0: 关系一致性 (Relation Consistency)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-encounter-farewell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 1: 邂逅与告别 (Encounter &amp; Farewell)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 2: 消耗资源添加好友
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 3: 消耗资源解锁关系节点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 4: 双人情境进入条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-avoided-unblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 5: 异路者与移除 (Avoided &amp; Unblock)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 依赖与接口 (Dependencies)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 依赖与接口 (Dependencies)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 外部依赖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 对外接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-content-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 内容需求 (Content Requirements)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 内容需求 (Content Requirements)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-config-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 配置表 (Config Tables)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 数值与逻辑说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 异常与边界 (Edge Cases)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-peak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 与 PEAK 的差异（梦山保留）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_%E5%95%86%E4%B8%9A%E4%BB%98%E8%B4%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09_商业付费
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A0%B8%E5%BF%83%E7%8E%A9%E6%B3%95%E8%A7%84%E8%8C%83_%E5%8F%8C%E4%BA%BA%E6%83%85%E5%A2%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心玩法规范_双人情境
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内容创作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    内容创作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83_%E8%B7%AF%E7%BA%BF%E4%B8%8E%E5%8D%8F%E4%BD%9C%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关卡设计(路线与协作节点)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%8F%99%E4%BA%8B%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    叙事规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数值设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1/00_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1%E7%BB%BC%E8%BF%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值设计综述
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    世界观
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/00_%E4%B8%96%E7%95%8C%E8%A7%82%E7%BB%BC%E8%BF%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观综述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/01_%E5%8E%86%E5%8F%B2%E5%B9%B4%E8%A1%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    历史年表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/02_%E5%9C%B0%E7%90%86%E5%BF%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    地理志
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/03_%E5%8A%BF%E5%8A%9B%E4%B8%8E%E7%A7%8D%E6%97%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    势力与种族
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/04_%E5%90%8D%E8%AF%8D%E6%9C%AF%E8%AF%AD%E8%A1%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    名词术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/05_%E4%B8%96%E7%95%8C%E8%A7%82%E9%97%AD%E7%8E%AF%E6%A3%80%E6%9F%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观闭环检查记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源表现
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源表现
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/00_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0%E6%80%BB%E5%88%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源表现总则
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/%E7%95%8C%E9%9D%A2%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    界面规范
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/%E8%B5%84%E6%BA%90%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源规范
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    其他
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E8%B7%AF%E5%BE%84%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路径结构说明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E6%8E%92%E7%89%88%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    排版规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E7%BD%91%E9%A1%B5%E5%8F%91%E5%B8%83%E4%B8%8E%E5%8D%8F%E4%BD%9C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网页发布与协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E7%AD%96%E5%88%92%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    策划更新操作流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-logical-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 逻辑架构 (Logical Architecture)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 逻辑架构 (Logical Architecture)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-design-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 设计原则 (Design Principles)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-relation-state-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 关系状态定义 (Relation State Definition)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-core-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 核心对象 (Core Objects)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-data-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 数据结构 (Data Schema)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-flowchart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 流程图 (Flowchart)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-interaction-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 交互细节 (Interaction Design)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-atomic-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 原子规则 (Atomic Rules)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 原子规则 (Atomic Rules)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0-relation-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 0: 关系一致性 (Relation Consistency)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-encounter-farewell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 1: 邂逅与告别 (Encounter &amp; Farewell)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 2: 消耗资源添加好友
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 3: 消耗资源解锁关系节点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 4: 双人情境进入条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-avoided-unblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        规则 5: 异路者与移除 (Avoided &amp; Unblock)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 依赖与接口 (Dependencies)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 依赖与接口 (Dependencies)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 外部依赖
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 对外接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-content-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 内容需求 (Content Requirements)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 内容需求 (Content Requirements)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-config-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 配置表 (Config Tables)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 数值与逻辑说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 异常与边界 (Edge Cases)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-peak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 与 PEAK 的差异（梦山保留）
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../01_%E6%94%80%E7%88%AC%E4%B8%8E%E7%A7%BB%E5%8A%A8/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    系统设计
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="relation-system-spec">梦山 系统设计规范 — 关系系统 (Relation System Spec)</h1>
+<blockquote>
+<p><strong>设计目的 (Design Goal)</strong>
+*   <strong>体验目标</strong>: [Aes: Belonging] 通过「陌生人→好友→持续投入解锁」的关系路径，形成类似光遇的社交节奏：<strong>需要消耗资源添加好友，并持续投入资源才能开启对白可见、双人情境等新功能</strong>，不依赖好感度积累。
+*   <strong>功能目标</strong>: 管理玩家间关系状态、<strong>资源消耗驱动的添加好友与解锁节点</strong>（如对白可见、双人情境入口），以及关系一致性。
+<strong>设计支柱引用</strong>: <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/02_Pillars_%E8%AE%BE%E8%AE%A1%E6%94%AF%E6%9F%B1/">双人/多人情境是长期锚点</a>
+<strong>更新日期</strong>: 2026-02-09</p>
+</blockquote>
+<hr />
+<h2 id="1-logical-architecture">1. 逻辑架构 (Logical Architecture)</h2>
+<h3 id="11-design-principles">1.1 设计原则 (Design Principles)</h3>
+<ul>
+<li><strong>关系一致性 (Relation Consistency)</strong><br />
+    玩家彼此间的关系<strong>一定一致</strong>，即不存在「我认为你是我的「好友」，而你却显示我是你的「陌生人」」。双方对同一对关系的状态判定必须一致。</li>
+</ul>
+<h3 id="12-relation-state-definition">1.2 关系状态定义 (Relation State Definition)</h3>
+<p>以下状态为系统内部状态，<strong>命名不需要呈现给玩家</strong>，仅用于逻辑与配置。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">状态码</th>
+<th style="text-align: left;">内部名称</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">表现与约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>0</strong></td>
+<td style="text-align: left;">陌生人</td>
+<td style="text-align: left;">通过分配机制在场景中遭遇的其他无交集玩家，通常仅显示统一的默认人物形象（类似光遇）。</td>
+<td style="text-align: left;">无 Avatar，无碰撞。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>1</strong></td>
+<td style="text-align: left;">邂逅者</td>
+<td style="text-align: left;">通过「互助」行为或特定的「认识」行为后，角色形象清晰呈现在彼此眼中。<strong>仅在当前时间/场景框架内生效。</strong></td>
+<td style="text-align: left;">呈现 Avatar，有碰撞。成为 1 后，玩家可主动「告别」，使之回退到 0。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2</strong></td>
+<td style="text-align: left;">同行者</td>
+<td style="text-align: left;"><strong>通过消耗资源完成添加-确认</strong>后，成为彼此好友列表中的玩家。成为好友后，<strong>互相看到对白</strong>等权益由「已解锁的关系节点」决定。</td>
+<td style="text-align: left;">成为 2 之后，<strong>无法回退到 0 和 1</strong>，但可以变为 3。后续功能（对白可见、系绳、双人情境等）需<strong>持续消耗资源</strong>在关系树上解锁，<strong>不依赖好感度积累</strong>。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3</strong></td>
+<td style="text-align: left;">异路者</td>
+<td style="text-align: left;">通过屏蔽、举报等行为投诉过的玩家，会尽量在匹配机制中规避。</td>
+<td style="text-align: left;">可在黑名单内进行移除操作，回归到进入 3 前的原状态。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-core-objects">1.3 核心对象 (Core Objects)</h3>
+<ul>
+<li>
+<p><strong>关系 (Relation)</strong>:</p>
+<ul>
+<li><strong>生命周期</strong>: 陌生人(0) → 邂逅者(1) → [消耗资源添加好友] → 同行者(2) → [可选] 异路者(3)；邂逅者可告别回退至 0；异路者可移除回归原状态。</li>
+<li><strong>关键属性</strong>: 关系双方 ID、关系状态码(0/1/2/3)、<strong>已解锁节点 ID 列表</strong>（决定对白可见、双人情境等权益）、添加/解锁时消耗的资源记录</li>
+</ul>
+</li>
+<li>
+<p><strong>关系阶段 (Relation Stage)</strong>（与状态码对应）:</p>
+<ul>
+<li><strong>0 陌生人</strong>: 场景分配遭遇，无 Avatar、无碰撞；<strong>无法看到对方对白</strong>。</li>
+<li><strong>1 邂逅者</strong>: 单次场景内互助/认识，有 Avatar、有碰撞，可告别回退；<strong>仍无法看到对方对白</strong>，除非已为 2 且解锁对白节点。</li>
+<li><strong>2 同行者</strong>: <strong>已消耗资源添加好友</strong>；可组队、查看状态。<strong>对白可见、系绳、双人情境等由「关系解锁树」上的已解锁节点决定</strong>，每解锁一项均需消耗资源（类似光遇）。</li>
+<li><strong>3 异路者</strong>: 屏蔽/举报后，匹配规避；黑名单可移除恢复</li>
+</ul>
+</li>
+</ul>
+<h3 id="14-data-schema">1.4 数据结构 (Data Schema)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// 玩家关系数据（双方存储一致，保证关系一致性）</span>
+<span class="kd">interface</span><span class="w"> </span><span class="nx">RelationData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">              </span><span class="c1">// 关系ID (playerA_id + playerB_id 有序)</span>
+<span class="w">    </span><span class="nx">playerA</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w">         </span><span class="c1">// 玩家A ID</span>
+<span class="w">    </span><span class="nx">playerB</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w">         </span><span class="c1">// 玩家B ID</span>
+<span class="w">    </span><span class="nx">state</span><span class="o">:</span><span class="w"> </span><span class="kt">RelationState</span><span class="p">;</span><span class="w">    </span><span class="c1">// 0陌生人 | 1邂逅者 | 2同行者 | 3异路者</span>
+<span class="w">    </span><span class="nx">unlockedNodeIds</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">[];</span><span class="w">  </span><span class="c1">// 已解锁的关系树节点ID（对白可见、双人情境等），由消耗资源解锁</span>
+<span class="w">    </span><span class="nx">lastCooperateTime?</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w">  </span><span class="c1">// 最近一次协作时间戳（可选，用于展示/统计，不参与解锁逻辑）</span>
+<span class="w">    </span><span class="nx">sceneFrameId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">   </span><span class="c1">// 邂逅者(1) 仅在当前时间/场景框架内生效时的场景标识</span>
+<span class="p">}</span>
+
+<span class="cm">/** 关系状态：内部使用，命名不呈现给玩家 */</span>
+<span class="kd">enum</span><span class="w"> </span><span class="nx">RelationState</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Stranger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w">   </span><span class="c1">// 陌生人</span>
+<span class="w">    </span><span class="nx">Encounter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w">  </span><span class="c1">// 邂逅者</span>
+<span class="w">    </span><span class="nx">Companion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w">  </span><span class="c1">// 同行者（已消耗资源添加的好友）</span>
+<span class="w">    </span><span class="nx">Avoided</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3</span><span class="w">     </span><span class="c1">// 异路者</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="15-flowchart">1.5 流程图 (Flowchart)</h3>
+<div class="highlight"><pre><span></span><code>graph TD
+    Start(场景内遭遇) --&gt; Encounter[互助/认识 → 邂逅者]
+    Encounter --&gt; AddFriend{消耗资源申请加好友}
+    AddFriend -- 对方确认且资源扣除 --&gt; Companion[同行者/好友]
+    Companion --&gt; UnlockNode[持续消耗资源解锁关系节点]
+    UnlockNode --&gt; Dialog[解锁：对白可见]
+    UnlockNode --&gt; Rope[解锁：系绳等]
+    UnlockNode --&gt; Situation[解锁：双人情境入口]
+</code></pre></div>
+<h3 id="16-interaction-design">1.6 交互细节 (Interaction Design)</h3>
+<ul>
+<li><strong>添加好友</strong>：一方发起「加好友」并<strong>消耗指定资源</strong>（如游戏内货币/道具，见配置表）；对方确认后，资源扣除，双方 state 置为 2（同行者）。<strong>未消耗资源或资源不足时无法完成添加</strong>。</li>
+<li><strong>对白可见</strong>：成为同行者(2) 后，<strong>仅当双方已解锁「对白可见」关系节点时</strong>，彼此才能看到对方发出的对白；未解锁前与陌生人/邂逅者一致，不显示对方对白。</li>
+<li><strong>持续投入解锁</strong>：在好友关系树上，每一档权益（如对白可见、系绳、某双人情境入口）对应一个<strong>关系节点</strong>；玩家需<strong>对该关系消耗资源</strong>才能解锁该节点，解锁后双方永久享有该权益。<strong>不依赖一起游玩或协作次数</strong>，仅依赖资源投入（类似光遇蜡烛/爱心解锁树）。</li>
+<li><strong>反馈表现</strong>:<ul>
+<li><strong>视觉</strong>: 关系阶段图标、关系树已解锁节点、解锁时的演出</li>
+<li><strong>听觉</strong>: 加好友/解锁节点时的提示音</li>
+<li><strong>触觉</strong>: [可选] 解锁节点时的震动反馈</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="2-atomic-rules">2. 原子规则 (Atomic Rules)</h2>
+<h3 id="0-relation-consistency">规则 0: 关系一致性 (Relation Consistency)</h3>
+<ul>
+<li><strong>级别</strong>: <strong>必须 (MUST)</strong></li>
+<li><strong>触发</strong>: 任意一方关系状态变更时</li>
+<li><strong>检查</strong>: 双方服务器/客户端数据可用</li>
+<li><strong>执行</strong>: 将新状态<strong>同步写入</strong>关系双方的数据；双方对同一对关系的 state 必须一致。</li>
+<li><strong>异常</strong>: 同步失败时回滚或重试，严禁出现双方状态不一致</li>
+</ul>
+<h3 id="1-encounter-farewell">规则 1: 邂逅与告别 (Encounter &amp; Farewell)</h3>
+<ul>
+<li><strong>级别</strong>: <strong>必须 (MUST)</strong></li>
+<li><strong>触发</strong>: 互助/认识行为成功 → state 置为 1（邂逅者）；玩家主动「告别」→ state 回退为 0（陌生人）</li>
+<li><strong>检查</strong>: 邂逅者(1) 仅在当前时间/场景框架内生效；告别仅当 state === 1 时允许</li>
+<li><strong>执行</strong>: 0↔1 仅在当前场景有效；写入时带 sceneFrameId；告别后清除 Avatar、碰撞</li>
+<li><strong>异常</strong>: 跨场景/跨会话后邂逅者自动视为失效（按 0 处理），除非已升为 2</li>
+</ul>
+<h3 id="2">规则 2: 消耗资源添加好友</h3>
+<ul>
+<li><strong>级别</strong>: <strong>必须 (MUST)</strong></li>
+<li><strong>触发</strong>: 一方发起「加好友」并选择消耗资源；对方确认</li>
+<li><strong>检查</strong>: 发起方拥有足够资源（见配置表）；双方 state 为 0 或 1；双方确认</li>
+<li><strong>执行</strong>: 扣除发起方资源；双方 state 置为 2（同行者）；关系数据同步双方</li>
+<li><strong>反馈</strong>: 加好友成功演出；若配置了「添加即解锁对白」，则写入 unlockedNodeIds</li>
+<li><strong>异常</strong>: 资源不足时无法发起或完成；重复加好友请求忽略，保持 2</li>
+</ul>
+<h3 id="3">规则 3: 消耗资源解锁关系节点</h3>
+<ul>
+<li><strong>级别</strong>: <strong>必须 (MUST)</strong></li>
+<li><strong>触发</strong>: 玩家对某段关系选择「解锁某节点」（如对白可见、系绳、某双人情境入口）</li>
+<li><strong>检查</strong>: 双方已是同行者(2)；该节点未解锁；玩家拥有节点所需资源（见 RelationUnlockNode 表）</li>
+<li><strong>执行</strong>: 扣除资源；将节点 ID 写入该关系的 unlockedNodeIds；双方同步</li>
+<li><strong>反馈</strong>: 解锁演出、对应权益立即可用（如对白可见、情境入口高亮）</li>
+<li><strong>异常</strong>: 资源不足时不可解锁；若一方解除好友，该关系及所有已解锁节点权益失效</li>
+</ul>
+<h3 id="4">规则 4: 双人情境进入条件</h3>
+<ul>
+<li><strong>级别</strong>: <strong>必须 (MUST)</strong></li>
+<li><strong>触发</strong>: 进入双人/多人情境</li>
+<li><strong>检查</strong>: 双方为同行者(2)；该情境对应的关系节点已解锁（unlockedNodeIds 含该情境节点）；双方在线</li>
+<li><strong>执行</strong>: 进入情境实例；消耗入场资格（若设计需要）</li>
+<li><strong>反馈</strong>: 情境加载、双人演出</li>
+<li><strong>异常</strong>: 对方离线时提示「等待搭档上线」；未解锁该情境节点时入口灰显或提示「需在关系树中解锁」</li>
+</ul>
+<h3 id="5-avoided-unblock">规则 5: 异路者与移除 (Avoided &amp; Unblock)</h3>
+<ul>
+<li><strong>级别</strong>: <strong>必须 (MUST)</strong></li>
+<li><strong>触发</strong>: 屏蔽/举报等行为 → state 置为 3（异路者）；在黑名单内执行移除 → 回归进入 3 前的原状态</li>
+<li><strong>检查</strong>: 匹配机制需查询 state，对 3 尽量规避；移除仅允许在黑名单/屏蔽列表界面操作</li>
+<li><strong>执行</strong>: 进入 3 时记录 previousState；移除时恢复 previousState，并同步双方</li>
+<li><strong>异常</strong>: 若原状态为 1（邂逅者），恢复后因场景可能已失效，按 0 处理</li>
+</ul>
+<hr />
+<h2 id="3-dependencies">3. 依赖与接口 (Dependencies)</h2>
+<h3 id="31">3.1 外部依赖</h3>
+<ul>
+<li>依赖 <strong>[道具/资源系统]</strong>: 添加好友与解锁节点时扣除资源（资源类型与数量见配置表）</li>
+<li>依赖 <strong>[双人情境]</strong>: 情境进入前检查该关系是否已解锁对应情境节点</li>
+</ul>
+<h3 id="32">3.2 对外接口</h3>
+<ul>
+<li>提供给 <strong>[匹配系统]</strong>: <code>GetCompanionList(playerId)</code> — 获取同行者（好友）列表用于组队</li>
+<li>提供给 <strong>[情境系统]</strong>: <code>HasUnlockedSituation(playerA, playerB, situationId)</code> — 检查双方是否已解锁该情境节点</li>
+<li>提供给 <strong>[UI]</strong>: <code>GetRelationStage(playerA, playerB)</code> — 展示关系状态；<code>GetUnlockedNodes(relationId)</code> — 展示已解锁节点（对白可见、情境等）</li>
+<li>提供给 <strong>[对白/聊天]</strong>: <code>CanSeeDialogue(playerA, playerB)</code> — 是否已解锁「对白可见」节点（同行者且节点已解锁时 true）</li>
+</ul>
+<hr />
+<h2 id="4-content-requirements">4. 内容需求 (Content Requirements)</h2>
+<h3 id="41-config-tables">4.1 配置表 (Config Tables)</h3>
+<p><strong>表名</strong>: <code>RelationUnlockNode</code>（关系解锁树节点，类似光遇好友树）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段名</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">分类</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">验证规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ID</td>
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">🔑 Key</td>
+<td style="text-align: left;">节点ID</td>
+<td style="text-align: left;">Unique, &gt;0</td>
+</tr>
+<tr>
+<td style="text-align: left;">NodeName</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">📝 Text</td>
+<td style="text-align: left;">节点名称键</td>
+<td style="text-align: left;">Ref(Localization)</td>
+</tr>
+<tr>
+<td style="text-align: left;">ResourceType</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">🔑 Key</td>
+<td style="text-align: left;">消耗资源类型</td>
+<td style="text-align: left;">如 currency / item_id</td>
+</tr>
+<tr>
+<td style="text-align: left;">ResourceAmount</td>
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">🔢 Num</td>
+<td style="text-align: left;">消耗数量</td>
+<td style="text-align: left;">&gt;0</td>
+</tr>
+<tr>
+<td style="text-align: left;">EffectType</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">📝 Enum</td>
+<td style="text-align: left;">解锁后权益类型</td>
+<td style="text-align: left;">DIALOG_VISIBLE / ROPE / SITUATION 等</td>
+</tr>
+<tr>
+<td style="text-align: left;">EffectParam</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">📝</td>
+<td style="text-align: left;">权益参数（如情境ID）</td>
+<td style="text-align: left;">可选</td>
+</tr>
+<tr>
+<td style="text-align: left;">ParentNodeId</td>
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">🔢 Num</td>
+<td style="text-align: left;">前置节点ID（0=无前置）</td>
+<td style="text-align: left;">可选，表示需先解锁该节点</td>
+</tr>
+</tbody>
+</table>
+<p><strong>表名</strong>: <code>AddFriendCost</code>（添加好友所需消耗）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段名</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">分类</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">验证规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ResourceType</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">🔑 Key</td>
+<td style="text-align: left;">资源类型</td>
+<td style="text-align: left;">如 currency / item_id</td>
+</tr>
+<tr>
+<td style="text-align: left;">Amount</td>
+<td style="text-align: left;">int</td>
+<td style="text-align: left;">🔢 Num</td>
+<td style="text-align: left;">数量</td>
+<td style="text-align: left;">&gt;0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42">4.2 数值与逻辑说明</h3>
+<ul>
+<li><strong>不设好感度/信任度</strong>：关系进阶与权益<strong>仅由「是否消耗资源完成添加」与「是否消耗资源解锁某节点」</strong>决定，协作次数不直接解锁功能。</li>
+<li><strong>对白可见</strong>：建议配置为关系树上首个或独立节点，解锁后双方可见对方对白；未解锁时与陌生人/邂逅者一致，不显示。</li>
+<li><strong>双人情境</strong>：每个情境入口对应一个 RelationUnlockNode，解锁后该关系下可进入该情境。</li>
+</ul>
+<hr />
+<h2 id="5-edge-cases">5. 异常与边界 (Edge Cases)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">场景</th>
+<th style="text-align: left;">预期行为</th>
+<th style="text-align: left;">错误码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">关系一致性</td>
+<td style="text-align: left;">任一方 state 变更必须同步对方，严禁双向显示不一致</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">邂逅者跨场景/跨会话</td>
+<td style="text-align: left;">状态 1 仅当前场景有效，离开后按 0 处理</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">主动告别（1→0）</td>
+<td style="text-align: left;">仅 state=1 时可操作；执行后无 Avatar、无碰撞</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">同行者(2) 回退</td>
+<td style="text-align: left;">不允许回退到 0 或 1，仅可变为 3（异路者）</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">异路者移除</td>
+<td style="text-align: left;">仅能在黑名单内操作，恢复为进入 3 前的 previousState</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">断网重连</td>
+<td style="text-align: left;">重新拉取关系数据，保持本地缓存</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">对方解除好友</td>
+<td style="text-align: left;">该关系及所有已解锁节点权益收回；state 按产品定义回退或保留为 2 但标记「已解除」</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">重复加好友</td>
+<td style="text-align: left;">忽略，保持同行者(2) 状态</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">资源不足</td>
+<td style="text-align: left;">无法发起添加好友或无法解锁节点；提示资源不足</td>
+<td style="text-align: left;">-</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-peak">6. 与 PEAK 的差异（梦山保留）</h2>
+<ul>
+<li><strong>PEAK</strong>：无陌生人/邂逅者/同行者等关系分级；同局队友均可互相访问背上背包、使用道具、救援，无权限门槛。</li>
+<li><strong>梦山保留</strong>：关系状态 0/1/2/3 及关系一致性；「谁可对谁 Take_Item、使用综合功效道具、系绳」等均由关系门控决定（见《协作与救援》4.3）。冲突时以梦山关系系统为准。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.path", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

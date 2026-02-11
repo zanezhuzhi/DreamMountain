@@ -1,0 +1,3965 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="梦山 DreamMountain 立项企划、技术架构与设计规范">
+      
+      
+        <meta name="author" content="DreamMountain Team">
+      
+      
+      
+        <link rel="prev" href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%86%85%E5%AE%B9%E8%A7%84%E5%88%92%E8%A7%84%E8%8C%83/">
+      
+      
+        <link rel="next" href="../02_%E5%8D%8F%E4%BD%9C%E4%B8%8E%E6%95%91%E6%8F%B4/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>01_攀爬与移动 - 代号梦山 · 项目文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#climb-movement-system-spec" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="代号梦山 · 项目文档" class="md-header__button md-logo" aria-label="代号梦山 · 项目文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            代号梦山 · 项目文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              01_攀爬与移动
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/00_%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="md-tabs__link">
+          
+  
+  
+  项目核心
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E5%88%9B%E6%84%8F%E9%AA%8C%E8%AF%81%E4%B9%A6/" class="md-tabs__link">
+          
+  
+  
+  立项企划
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83/" class="md-tabs__link">
+          
+  
+  
+  技术架构
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  系统设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83_%E8%B7%AF%E7%BA%BF%E4%B8%8E%E5%8D%8F%E4%BD%9C%E8%8A%82%E7%82%B9/" class="md-tabs__link">
+          
+  
+  
+  内容创作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1/00_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1%E7%BB%BC%E8%BF%B0/" class="md-tabs__link">
+          
+  
+  
+  数值设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/00_%E4%B8%96%E7%95%8C%E8%A7%82%E7%BB%BC%E8%BF%B0/" class="md-tabs__link">
+          
+  
+  
+  世界观
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/00_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0%E6%80%BB%E5%88%99/" class="md-tabs__link">
+          
+  
+  
+  资源表现
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08_%E5%85%B6%E4%BB%96/%E8%B7%AF%E5%BE%84%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E/" class="md-tabs__link">
+          
+  
+  
+  其他
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="代号梦山 · 项目文档" class="md-nav__button md-logo" aria-label="代号梦山 · 项目文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    代号梦山 · 项目文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目核心
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目核心
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/00_%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/01_Vision_%E6%84%BF%E6%99%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    愿景
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/02_Pillars_%E8%AE%BE%E8%AE%A1%E6%94%AF%E6%9F%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    设计支柱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/03_Loops_%E6%A0%B8%E5%BF%83%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心循环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/04_ResourceFlow_%E8%B5%84%E6%BA%90%E6%B5%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/05_SystemArch_%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    立项企划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    立项企划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E5%88%9B%E6%84%8F%E9%AA%8C%E8%AF%81%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创意验证书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E6%B8%B8%E6%88%8F%E6%A6%82%E5%BF%B5%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏概念书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技术架构
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术架构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程技术规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%86%85%E5%AE%B9%E8%A7%84%E5%88%92%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内容规划规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01_攀爬与移动
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01_攀爬与移动
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-challenge-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 挑战模型 (Challenge Model)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 挑战模型 (Challenge Model)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-resistance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 阻力来源 (Resistance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-core-verb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 核心动词 (Core Verb)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-basic-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 基础操作 (Basic Controls)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 基础操作 (Basic Controls)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1 PC 端输入与状态切换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-ios-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2 移动端输入与触控映射（iOS / Android）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-experience-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 体验循环 (Experience Loop)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 体验循环 (Experience Loop)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        循环详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-validation-heuristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 验证准则 (Validation Heuristics)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 验证准则 (Validation Heuristics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-depth-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 深度验证 (Depth Check)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-pacing-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 节奏验证 (Pacing Check)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-execution-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 执行细则 (Execution Details)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 执行细则 (Execution Details)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-atomic-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 原子操作 (Atomic Actions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-object-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 对象状态 (Object States)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 角色基础移动与体力常量（CA 表定义）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-physics-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 物理参数与运动模型（Physics Model）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 物理参数与运动模型（Physics Model）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.1 全局物理常量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.2 斜坡与斜面判定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.3 攀爬状态中的运动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.4 输入容错与吸附辅助
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 与系统架构的映射
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-unreal-engine-mapping-to-ue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Unreal Engine 实现约定（Mapping to UE）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Unreal Engine 实现约定（Mapping to UE）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-ue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 常量 ↔ UE 参数对照表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-movementmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 攀爬 MovementMode 实现约定（简要）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 反馈设计（攀爬与体力相关）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-micro-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 输入与节奏校验（Micro Loop）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 输入与节奏校验（Micro Loop）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 现有攀爬输入方案的认知负荷
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 保留方案与教学引导
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-micro-loop-055" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 典型 Micro Loop 片段示例（0.5–5 秒）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 高精度 vs 高宽容度定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-3c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 3C 与相机规则对接
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 3C 与相机规则对接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 相机基础规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 攀爬状态下的相机行为
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 协作与救援状态下的相机行为
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-vs-3c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 高精度 vs 高宽容度在 3C 中的体现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E5%8D%8F%E4%BD%9C%E4%B8%8E%E6%95%91%E6%8F%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02_协作与救援
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%85%B3%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03_环境与关卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E7%8A%B6%E6%80%81%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04_状态系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_%E9%81%93%E5%85%B7%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05_道具系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_%E7%BB%B3%E7%B4%A2%E4%B8%8E%E6%94%80%E7%99%BB%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06_绳索与攀登工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_%E8%BF%9B%E5%BA%A6%E4%B8%8E%E5%A4%8D%E6%B4%BB%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07_进度与复活点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08_关系系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_%E5%95%86%E4%B8%9A%E4%BB%98%E8%B4%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09_商业付费
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A0%B8%E5%BF%83%E7%8E%A9%E6%B3%95%E8%A7%84%E8%8C%83_%E5%8F%8C%E4%BA%BA%E6%83%85%E5%A2%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心玩法规范_双人情境
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内容创作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    内容创作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83_%E8%B7%AF%E7%BA%BF%E4%B8%8E%E5%8D%8F%E4%BD%9C%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关卡设计(路线与协作节点)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%8F%99%E4%BA%8B%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    叙事规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数值设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1/00_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1%E7%BB%BC%E8%BF%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值设计综述
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    世界观
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/00_%E4%B8%96%E7%95%8C%E8%A7%82%E7%BB%BC%E8%BF%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观综述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/01_%E5%8E%86%E5%8F%B2%E5%B9%B4%E8%A1%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    历史年表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/02_%E5%9C%B0%E7%90%86%E5%BF%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    地理志
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/03_%E5%8A%BF%E5%8A%9B%E4%B8%8E%E7%A7%8D%E6%97%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    势力与种族
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/04_%E5%90%8D%E8%AF%8D%E6%9C%AF%E8%AF%AD%E8%A1%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    名词术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/05_%E4%B8%96%E7%95%8C%E8%A7%82%E9%97%AD%E7%8E%AF%E6%A3%80%E6%9F%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观闭环检查记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源表现
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源表现
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/00_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0%E6%80%BB%E5%88%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源表现总则
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/%E7%95%8C%E9%9D%A2%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    界面规范
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/%E8%B5%84%E6%BA%90%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源规范
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    其他
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E8%B7%AF%E5%BE%84%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路径结构说明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E6%8E%92%E7%89%88%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    排版规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E7%BD%91%E9%A1%B5%E5%8F%91%E5%B8%83%E4%B8%8E%E5%8D%8F%E4%BD%9C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网页发布与协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E7%AD%96%E5%88%92%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    策划更新操作流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-challenge-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 挑战模型 (Challenge Model)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 挑战模型 (Challenge Model)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-resistance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 阻力来源 (Resistance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-core-verb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 核心动词 (Core Verb)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-basic-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 基础操作 (Basic Controls)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 基础操作 (Basic Controls)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-pc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1 PC 端输入与状态切换
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-ios-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2 移动端输入与触控映射（iOS / Android）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-experience-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 体验循环 (Experience Loop)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 体验循环 (Experience Loop)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        循环详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-validation-heuristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 验证准则 (Validation Heuristics)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 验证准则 (Validation Heuristics)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-depth-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 深度验证 (Depth Check)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-pacing-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 节奏验证 (Pacing Check)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-execution-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 执行细则 (Execution Details)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 执行细则 (Execution Details)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-atomic-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 原子操作 (Atomic Actions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-object-states" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 对象状态 (Object States)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 角色基础移动与体力常量（CA 表定义）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-physics-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 物理参数与运动模型（Physics Model）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 物理参数与运动模型（Physics Model）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.1 全局物理常量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.2 斜坡与斜面判定
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.3 攀爬状态中的运动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.4 输入容错与吸附辅助
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 与系统架构的映射
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-unreal-engine-mapping-to-ue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Unreal Engine 实现约定（Mapping to UE）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Unreal Engine 实现约定（Mapping to UE）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-ue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 常量 ↔ UE 参数对照表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-movementmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 攀爬 MovementMode 实现约定（简要）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 反馈设计（攀爬与体力相关）
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-micro-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 输入与节奏校验（Micro Loop）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 输入与节奏校验（Micro Loop）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 现有攀爬输入方案的认知负荷
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 保留方案与教学引导
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-micro-loop-055" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 典型 Micro Loop 片段示例（0.5–5 秒）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 高精度 vs 高宽容度定位
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-3c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 3C 与相机规则对接
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. 3C 与相机规则对接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 相机基础规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 攀爬状态下的相机行为
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 协作与救援状态下的相机行为
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-vs-3c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 高精度 vs 高宽容度在 3C 中的体现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    系统设计
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="climb-movement-system-spec">梦山 系统设计规范 — 攀爬与移动 (Climb &amp; Movement System Spec)</h1>
+<blockquote>
+<p><strong>核心体验锚点 (Core Aesthetics)</strong>: 在旅途中，因一次真实的互助而与陌生人建立信任，共同克服障碍登顶的归属感。
+<strong>设计支柱引用</strong>: <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/02_Pillars_%E8%AE%BE%E8%AE%A1%E6%94%AF%E6%9F%B1/">互助即玩法</a>
+<strong>关联文档</strong>: <a href="../02_%E5%8D%8F%E4%BD%9C%E4%B8%8E%E6%95%91%E6%8F%B4/">02_协作与救援</a>（托举、拉拽、互助行为与关系门控）、<a href="../04_%E7%8A%B6%E6%80%81%E7%B3%BB%E7%BB%9F/">04_状态系统</a>（体力消耗与 Action_Bar）
+<strong>更新日期</strong>: 2026-02-07</p>
+</blockquote>
+<hr />
+<h2 id="1-challenge-model">1. 挑战模型 (Challenge Model)</h2>
+<h3 id="11-resistance">1.1 阻力来源 (Resistance)</h3>
+<ul>
+<li>[x] <strong>操作精度 (Dexterity)</strong>: 需要精准的支点选择、借力时机与协作配合。</li>
+<li>[x] <strong>协作协调 (Coordination)</strong>: 托举/拉拽需要与搭档在时空上对齐。（详见《协作与救援》）</li>
+<li>[ ] <strong>时间压力 (Time Pressure)</strong>: 可选；部分节点可设计限时借力。</li>
+<li>[ ] <strong>资源短缺 (Scarcity)</strong>: 不用于核心攀爬；体力/次数限制需谨慎，避免影响核心体验。</li>
+</ul>
+<h3 id="12-core-verb">1.2 核心动词 (Core Verb)</h3>
+<ul>
+<li><strong>攀爬 (Climbing)</strong>: 抓取支点、位移、借力、失败重试。</li>
+<li><strong>互助 (Cooperating)</strong>: 托举、拉拽、借力——必须影响关卡进度或成败，而非仅社交动作；定义见《协作与救援》。</li>
+</ul>
+<h3 id="13-basic-controls">1.3 基础操作 (Basic Controls)</h3>
+<h4 id="131-pc">1.3.1 PC 端输入与状态切换</h4>
+<ul>
+<li><strong>道具栏与手持</strong></li>
+<li>
+<p>数字键 <code>1</code>–<code>4</code>：对应 3 个物品栏 + 1 个背包栏。首次点击某栏位，将该栏位道具取在手中并高亮；再次点击可在栏位间切换或将当前手持道具放回该栏位（详见《道具系统》）。</p>
+</li>
+<li>
+<p><strong>移动与奔跑</strong></p>
+</li>
+<li><code>W/A/S/D</code>：控制角色在地面上的移动（基础移动，按 <code>MOVE_SPEED</code>）。</li>
+<li>
+<p><code>Shift + 方向键</code>：在地面上从走路切换为奔跑，按 <code>STAMINA_COST_RUN_PER_SEC</code> 持续消耗体力（详见《状态系统》）。</p>
+</li>
+<li>
+<p><strong>基础跳跃</strong></p>
+</li>
+<li>
+<p><code>Space</code>：在站立/移动/奔跑状态下触发「基础跳跃」，高度由 <code>JUMP_HEIGHT</code> 与重力共同决定；基础跳跃不消耗体力。</p>
+</li>
+<li>
+<p><strong>站立在地面且空手时</strong></p>
+</li>
+<li><code>E</code>：对前方有效目标执行「交互」（如机关、他人背包、NPC 等）。</li>
+<li>长按鼠标右键 + 移动鼠标：转动视角。</li>
+<li>长按鼠标左键 / 虚拟「托举」按钮：在可站立平地进入「托举状态」（托举逻辑见《协作与救援》）。</li>
+<li>
+<p>面向可攀爬斜面并在判定距离内时，短按或长按鼠标左键 / 虚拟「攀爬」按钮一次，即可触发「靠近 + 单键确认」进入「攀爬状态」（具体规则见 4.1）；进入后无需持续按键维持附着。</p>
+</li>
+<li>
+<p><strong>站立在地面且手持道具时</strong></p>
+</li>
+<li><code>Q</code>（点按）：将当前手持道具放置在地面；长按 <code>Q</code> 视为「投掷」，用于抛掷道具（详见《道具系统》）。</li>
+<li><code>E</code>：当面向有效目标（如队友、他人背包）时，长按 <code>E</code> 触发「对目标使用道具 / 放入背包」的逻辑（见《道具系统》《协作与救援》）。</li>
+<li>长按鼠标左键：对自身使用当前手持道具，并显示使用进度条，同时作为防误触确认（见《道具系统》2.2）。</li>
+<li>
+<p>鼠标右键：将当前手持道具放回对应物品栏，取消高亮选中。</p>
+</li>
+<li>
+<p><strong>攀爬状态下</strong></p>
+</li>
+<li>
+<p>角色处于「攀爬状态」时无法取出或持有地面道具，需先通过「释放支点」「攀爬跳跃」或自动站立等方式脱离攀爬。待于地面站定，方可再次使用道具相关操作。</p>
+</li>
+<li>
+<p><strong>持续动作的中断规则（通用）</strong></p>
+</li>
+<li>标记为「持续」的动作（如奔跑体力消耗、攀爬、攀爬跳跃蓄力、长按使用道具等）在角色状态发生变化（如站立 → 下落 / 攀爬）或发生显著位移（如跳跃起跳、被拉拽 / 托举）时，会立即被中断，当前使用进度条清零，需要重新长按触发。</li>
+</ul>
+<h4 id="132-ios-android">1.3.2 移动端输入与触控映射（iOS / Android）</h4>
+<ul>
+<li><strong>整体布局</strong></li>
+<li><strong>左侧区域（移动与攀爬方向）</strong>  <ul>
+<li>屏幕左下约 1/3–1/2 区域为「虚拟摇杆」区域。  </li>
+<li>轻微偏移（半径 \&lt; <code>JOYSTICK_RUN_THRESHOLD</code>）时，以 <code>MOVE_SPEED</code> 行走；  </li>
+<li>推至外圈（半径 ≥ <code>JOYSTICK_RUN_THRESHOLD</code>）并持续超过 <code>RUN_TRIGGER_TIME</code>（如约 3 秒）时，自动切换为「奔跑状态」，以 <code>RUN_SPEED</code> 移动，并按 <code>STAMINA_COST_RUN_PER_SEC</code> 持续结算体力消耗；进入奔跑后，只要摇杆大致维持当前朝向，即便回到内圈也维持奔跑，只有回正/反向拨动或松开摇杆才会退出奔跑。</li>
+</ul>
+</li>
+<li><strong>右侧区域（动作与交互）</strong>  <ul>
+<li>右下为「跳跃」「行动/攀爬」「交互」等主按钮，以 2×2 或扇形布局，方便拇指滚动点击。  </li>
+</ul>
+</li>
+<li>
+<p><strong>底部居中区域（道具栏 1–4）</strong>  </p>
+<ul>
+<li>屏幕底部居中显示 4 格道具栏槽位，从左至右对应 PC 的 <code>1</code>–<code>4</code>：  </li>
+<li>轻触某槽位：将对应栏位道具取在手中 / 切换当前手持，高亮显示；  </li>
+<li>长按某槽位 ≥ <code>ITEM_USE_HOLD_MS</code>：触发「使用」或「长按使用」逻辑；  </li>
+<li>若为丢弃类操作，则通过独立「丢弃」按钮或二次确认弹窗，长按 ≥ <code>ITEM_DROP_HOLD_MS</code> 后才执行，以防误触。</li>
+</ul>
+</li>
+<li>
+<p><strong>PC ↔ Mobile 输入映射</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">功能</th>
+<th style="text-align: left;">PC 键位 / 鼠标</th>
+<th style="text-align: left;">Mobile 操作</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">水平移动</td>
+<td style="text-align: left;"><code>W/A/S/D</code></td>
+<td style="text-align: left;">左虚拟摇杆偏移方向</td>
+<td style="text-align: left;">偏移半径与速度线性或曲线映射，支持死区 <code>JOYSTICK_DEADZONE</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">奔跑</td>
+<td style="text-align: left;"><code>Shift + 方向键</code></td>
+<td style="text-align: left;">左虚拟摇杆推至外圈（≥ <code>JOYSTICK_RUN_THRESHOLD</code>）并持续 ≥ <code>RUN_TRIGGER_TIME</code> 触发奔跑；其后只要摇杆保持大致同向，即便回到内圈仍维持奔跑</td>
+<td style="text-align: left;">回正/反向拨动或松手退出奔跑，持续按秒结算体力</td>
+</tr>
+<tr>
+<td style="text-align: left;">基础跳跃</td>
+<td style="text-align: left;"><code>Space</code></td>
+<td style="text-align: left;">点击右下「跳跃」按钮</td>
+<td style="text-align: left;">地面/移动/奔跑状态下皆可触发，逻辑与 PC 保持一致</td>
+</tr>
+<tr>
+<td style="text-align: left;">进入攀爬</td>
+<td style="text-align: left;">方向键 + 长按鼠标左键</td>
+<td style="text-align: left;">角色靠近并面向「可攀爬斜面」时，点击或短按「行动/攀爬」按钮一次</td>
+<td style="text-align: left;">采用「靠近 + 单键确认」方案：满足斜面角度与距离判定后，角色吸附并进入攀爬状态，进入后无需持续按键维持附着</td>
+</tr>
+<tr>
+<td style="text-align: left;">攀爬移动</td>
+<td style="text-align: left;">攀爬态下 <code>W/A/S/D</code></td>
+<td style="text-align: left;">攀爬状态下左虚拟摇杆方向输入</td>
+<td style="text-align: left;">贴附斜面上下/左右移动，遵循 <code>CLIMB_MOVE_SPEED</code> 等参数</td>
+</tr>
+<tr>
+<td style="text-align: left;">攀爬跳跃</td>
+<td style="text-align: left;">攀爬态下 <code>Space</code></td>
+<td style="text-align: left;">攀爬状态下点击「跳跃」按钮</td>
+<td style="text-align: left;">轨迹与体力消耗规则与 PC 保持一致</td>
+</tr>
+<tr>
+<td style="text-align: left;">托举</td>
+<td style="text-align: left;">面向目标 + 按键</td>
+<td style="text-align: left;">面向队友 + 长按「行动」按钮 ≥ <code>COOP_HOLD_MS</code></td>
+<td style="text-align: left;">满足托举范围与关系门控时，进入「托举状态」，逻辑见《协作与救援》</td>
+</tr>
+<tr>
+<td style="text-align: left;">拉拽</td>
+<td style="text-align: left;">面向目标 + 按键</td>
+<td style="text-align: left;">站在高处，面对下方队友 + 长按「行动」按钮</td>
+<td style="text-align: left;">由上下文决定执行「拉拽」而非「托举」，规则见《协作与救援》</td>
+</tr>
+<tr>
+<td style="text-align: left;">交互（「交互」键）</td>
+<td style="text-align: left;"><code>E</code></td>
+<td style="text-align: left;">点击右侧「交互」按钮</td>
+<td style="text-align: left;">对机关、NPC、他人背包等执行「交互」行为</td>
+</tr>
+<tr>
+<td style="text-align: left;">切换道具栏 1–4</td>
+<td style="text-align: left;">数字键 <code>1</code>–<code>4</code></td>
+<td style="text-align: left;">点击底部居中 4 格道具栏槽位</td>
+<td style="text-align: left;">槽位高亮，图标放大，当前手持与 PC 逻辑一致</td>
+</tr>
+<tr>
+<td style="text-align: left;">使用道具</td>
+<td style="text-align: left;">鼠标左键（手持时）</td>
+<td style="text-align: left;">在选中槽位上长按 ≥ <code>ITEM_USE_HOLD_MS</code> 或点击独立「使用」按钮</td>
+<td style="text-align: left;">使用过程显示进度环，防止误触</td>
+</tr>
+<tr>
+<td style="text-align: left;">丢弃道具</td>
+<td style="text-align: left;">长按 <code>Q</code> 确认</td>
+<td style="text-align: left;">长按「丢弃」按钮 ≥ <code>ITEM_DROP_HOLD_MS</code></td>
+<td style="text-align: left;">丢弃到脚下，长按+进度条作为防误触策略</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>多点触控与误触防护</strong></li>
+<li>多点输入优先级：左虚拟摇杆移动 ＞ 右侧主动作（跳跃/行动/交互） ＞ 道具快捷操作。  </li>
+<li>底部居中道具栏与系统手势（如系统返回/主屏）之间预留安全距离 <code>SAFE_MARGIN_BOTTOM</code>，避免被系统手势误触打断。  </li>
+<li>所有会导致道具消失或存在明显损失的操作（如「丢弃」「投掷」）必须通过「长按 + 进度环」完成，不允许单击直接执行。</li>
+</ul>
+<hr />
+<h2 id="2-experience-loop">2. 体验循环 (Experience Loop)</h2>
+<div class="highlight"><pre><span></span><code>graph LR
+    Observe(观察: 支点/搭档位置) --&gt; Decide(决策: 路线/协作时机)
+    Decide --&gt; Act(行动: 攀爬/托举/拉拽)
+    Act --&gt; Feedback(反馈: 成功登段/失败重试)
+    Feedback --&gt; Learn(学习: 修正节奏与配合)
+    Learn --&gt; Observe
+</code></pre></div>
+<h3 id="_1">循环详解</h3>
+<ul>
+<li><strong>观察</strong>: 玩家需关注支点分布、搭档状态、协作触发区域。</li>
+<li><strong>决策</strong>: 面临「现在攀还是等搭档」「谁来托举/拉拽」等权衡。</li>
+<li><strong>行动</strong>: 攀爬输入（抓取/释放）、托举/拉拽输入（朝向、范围）；协作动作见《协作与救援》。</li>
+<li><strong>反馈</strong>: 位移、成功/失败音效与特效；协作成功时明确「我们一起做到了」的成就感。</li>
+</ul>
+<hr />
+<h2 id="3-validation-heuristics">3. 验证准则 (Validation Heuristics)</h2>
+<h3 id="31-depth-check">3.1 深度验证 (Depth Check)</h3>
+<ul>
+<li><strong>策略空间</strong>: 熟练玩家能通过路线预判与协作节奏，减少失败次数；新手与熟练玩家的差距可通过「重试成本可控」缓和。</li>
+<li><strong>重玩价值</strong>: 同一路线，双人协作 vs 单人、不同搭档，体验不同；隐藏/分支路线需协作才有解法。</li>
+</ul>
+<h3 id="32-pacing-check">3.2 节奏验证 (Pacing Check)</h3>
+<ul>
+<li><strong>压力窗口</strong>: 单段攀爬 3–15 分钟；关键协作节点处压力集中。</li>
+<li><strong>释放窗口</strong>: 到达检查点、登顶、协作成功后给予喘息与成就感。</li>
+</ul>
+<hr />
+<h2 id="4-execution-details">4. 执行细则 (Execution Details)</h2>
+<h3 id="41-atomic-actions">4.1 原子操作 (Atomic Actions)</h3>
+<blockquote>
+<p><strong>说明</strong>：本小节定义基础移动、攀爬及与攀爬直接相关的操作；托举、拉拽、拉上去等协作动作见《协作与救援》。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">操作名称</th>
+<th style="text-align: left;">触发方式</th>
+<th style="text-align: left;">前置条件</th>
+<th style="text-align: left;">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">基础移动</td>
+<td style="text-align: left;">键盘 WASD / 虚拟摇杆</td>
+<td style="text-align: left;">角色在地面且非锁定状态</td>
+<td style="text-align: left;">以 <code>MOVE_SPEED</code> 水平移动，不消耗体力</td>
+</tr>
+<tr>
+<td style="text-align: left;">奔跑</td>
+<td style="text-align: left;">按住 Shift / 虚拟「奔跑」按钮</td>
+<td style="text-align: left;">角色在地面移动中，体力 &gt; 0</td>
+<td style="text-align: left;">速度切换为 <code>RUN_SPEED</code>；在速度变更为奔跑的首帧，立即扣除一次体力，此后按 <code>STAMINA_COST_RUN_PER_SEC</code> <strong>每秒</strong>扣除体力（未满 1 秒的时间段在退出奔跑或状态切换时按比例预先结算）</td>
+</tr>
+<tr>
+<td style="text-align: left;">基础跳跃</td>
+<td style="text-align: left;">空格 / 虚拟「跳跃」按钮</td>
+<td style="text-align: left;">角色处于地面 / 移动 / 奔跑状态</td>
+<td style="text-align: left;">以 <code>JUMP_HEIGHT</code> 起跳；静止/移动/奔跑不影响跳跃高度；<strong>不消耗体力</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">攀爬</td>
+<td style="text-align: left;">面向可攀爬斜面并在判定距离内时，点击或短按鼠标左键 / 虚拟「攀爬」按钮一次</td>
+<td style="text-align: left;">角色身体触碰到被判定为「可攀爬斜面」的范围</td>
+<td style="text-align: left;">采用「靠近 + 单键确认」进入攀爬：当角色靠近并面向斜面时，玩家按下攀爬键即可<strong>进入攀爬状态</strong>，角色身体吸附在斜面上；在<strong>保持贴附但不产生位移</strong>时，按较低档的「持续扣除体力」；当在 W/S/A/D 任一方向上产生位移时，按较高档的「持续扣除体力」（具体数值见数值文档）；W 调整为向高处攀登，S 向下，A 沿斜面向左，D 沿斜面向右；在攀爬状态下<strong>不需要持续按住攀爬键</strong>，角色会保持悬挂，除非执行「攀爬跳跃」或「释放支点」等操作脱离斜面</td>
+</tr>
+<tr>
+<td style="text-align: left;">攀爬跳跃</td>
+<td style="text-align: left;">空格</td>
+<td style="text-align: left;">角色处于攀爬状态</td>
+<td style="text-align: left;">角色脱离斜面，并沿当前输入方向跳跃一段距离；<br>向上方攀爬跳跃时，以「<code>CLIMB_JUMP_HEIGHT</code> × 斜面摩擦力系数」定义最大高度，同时扣除 <code>CLIMB_JUMP_STAMINA_COST</code>；<br>向两侧跳跃时，视力矩分布与摩擦力，距离可能缩减，同样消耗 <code>CLIMB_JUMP_STAMINA_COST</code>；<br>向下方攀爬跳跃时，不消耗体力，向背离斜面侧少许位移，在原地脱离斜面</td>
+</tr>
+<tr>
+<td style="text-align: left;">自动站立</td>
+<td style="text-align: left;">无（系统判定）</td>
+<td style="text-align: left;">角色处于攀爬状态，且脚部触及到「可站立地面」判定</td>
+<td style="text-align: left;">自动解除攀爬状态，角色在地面上进入站立状态</td>
+</tr>
+<tr>
+<td style="text-align: left;">翻越动作</td>
+<td style="text-align: left;">无（系统判定 / 轻量输入触发，具体实现待定）</td>
+<td style="text-align: left;">角色处于攀爬状态，头部等高触及到上方「可站立区域」</td>
+<td style="text-align: left;">触发「翻越动作」，角色站立在高处可站立区域</td>
+</tr>
+<tr>
+<td style="text-align: left;">抓取支点</td>
+<td style="text-align: left;">按键/触控</td>
+<td style="text-align: left;">在支点范围内</td>
+<td style="text-align: left;">角色吸附支点，可进行位移</td>
+</tr>
+<tr>
+<td style="text-align: left;">释放支点</td>
+<td style="text-align: left;">松开</td>
+<td style="text-align: left;">已抓取支点</td>
+<td style="text-align: left;">脱离支点，可能下落</td>
+</tr>
+<tr>
+<td style="text-align: left;">借力跳跃</td>
+<td style="text-align: left;">按键</td>
+<td style="text-align: left;">在借力支点/搭档附近</td>
+<td style="text-align: left;">获得额外冲量，到达更高支点</td>
+</tr>
+<tr>
+<td style="text-align: left;">托举</td>
+<td style="text-align: left;">在平地上按下鼠标左键 / 「虚拟交互」键</td>
+<td style="text-align: left;">角色处于可站立平地且附近存在可托举对象</td>
+<td style="text-align: left;">进入「托举状态」：托举者缩小碰撞体积，在其碰撞范围内<strong>首先与之重叠身位的 1 位玩家</strong>进入「受托举状态」；受托举者在该状态下进行跳跃时，触发「受托举跳跃」动作，高度高于基础跳跃；若受托举者从任意方向尝试离开重叠身位，则托举者做出小幅对应朝向的托举动作并脱离托举，受托举者获得一小段额外高度；协作逻辑与关系门控详见《协作与救援》</td>
+</tr>
+</tbody>
+</table>
+<p>| 拉拽 | 鼠标左键 / 「交互」键 | 搭档处于攀爬状态，位于拉拽者一定距离范围内，且高度低于拉拽者，拉拽者处于可站立状态 | 不需要额外朝向输入：在满足上述条件时，拉拽者点击鼠标左键 / J 自动对最近满足条件的目标执行拉拽，将目标<strong>拉至拉拽者当前位置</strong>（含合理的对齐与落脚判定）；协作逻辑与关系门控详见《协作与救援》 |</p>
+<h3 id="42-object-states">4.2 对象状态 (Object States)</h3>
+<ul>
+<li><strong>角色</strong>: 站立/移动/奔跑 → [跳跃] → 自由下落 → [抓取支点 / 进入可攀爬斜面] → 攀爬中 → [攀爬跳跃 / 释放] → 自由下落 / 到达新支点 / 翻越至上方可站立区域 / 自动站立回到地面</li>
+<li><strong>协作节点</strong>: 未触发 → [双方进入区域+输入] → 协作成功 / 协作失败（超时/错位）；详见《协作与救援》。</li>
+</ul>
+<h3 id="43-ca">4.3 角色基础移动与体力常量（CA 表定义）</h3>
+<blockquote>
+<p><strong>来源</strong>: 《基础行为》文档中关于移动速度、奔跑速度、体力与攀爬消耗的约定。</p>
+</blockquote>
+<p>本节定义用于驱动角色基础移动、奔跑、跳跃与攀爬相关体力消耗的关键常量，统一存于 <code>CA_BASE_CHARACTER_MOVEMENT</code> 常量表中。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">常量名</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">单位</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">备注示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>MOVE_SPEED</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">m/s</td>
+<td style="text-align: left;">角色在地面基础移动速度</td>
+<td style="text-align: left;">如 3.5</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>RUN_SPEED</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">m/s</td>
+<td style="text-align: left;">角色在地面奔跑速度</td>
+<td style="text-align: left;">如 5.5</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>STAMINA_MAX</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">点</td>
+<td style="text-align: left;">角色体力上限</td>
+<td style="text-align: left;">如 100；实际由《状态系统》与成长决定</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>STAMINA_COST_RUN_PER_SEC</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">点/秒</td>
+<td style="text-align: left;">奔跑状态下每秒体力消耗</td>
+<td style="text-align: left;">首帧额外扣一次，之后按秒结算</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>JUMP_HEIGHT</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">地面基础跳跃高度</td>
+<td style="text-align: left;">与重力参数共同决定腾空时间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CLIMB_STAMINA_COST_PER_SEC</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">点/秒</td>
+<td style="text-align: left;">攀爬状态下每秒体力消耗</td>
+<td style="text-align: left;">进入攀爬后的连续消耗</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CLIMB_JUMP_HEIGHT</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">m</td>
+<td style="text-align: left;">攀爬跳跃基础高度</td>
+<td style="text-align: left;">实际高度 = <code>CLIMB_JUMP_HEIGHT × 斜面摩擦力系数</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CLIMB_JUMP_STAMINA_COST</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">点/次</td>
+<td style="text-align: left;">向上/侧向攀爬跳跃的体力消耗</td>
+<td style="text-align: left;">向下攀爬跳跃不消耗体力</td>
+</tr>
+</tbody>
+</table>
+<p><strong>体力结算规则补充</strong>：</p>
+<ul>
+<li><strong>奔跑体力</strong>：从「非奔跑状态」切换为「奔跑状态」的首帧，立即扣除一次 <code>STAMINA_COST_RUN_PER_SEC</code>；此后每满 1 秒结算一次消耗。若玩家在不足 1 秒内停止奔跑或切换状态，则按本次奔跑实际持续时间占 1 秒的比例，预先结算体力消耗。</li>
+<li><strong>攀爬体力</strong>：进入攀爬状态的首帧不做额外扣除，从进入攀爬时刻起按真实时间连续扣除 <code>CLIMB_STAMINA_COST_PER_SEC</code>。体力为 0 时，不再允许触发新的攀爬跳跃，角色倾向于向下滑落或回到可站立状态（具体失败反馈见 Demo 调优）。</li>
+<li><strong>占段与体力上限</strong>：当《状态系统》中由环境危害或负重等造成的占段将 Action_Bar 完全占满时，可视为本规范中的「体力上限 = 0」，与体力为 0 在行为层面的效果一致——不能再启动新的高消耗动作（奔跑/攀爬跳跃等），但仍允许通过被动恢复效果（持续回复状态、队友投掷道具等）逐步恢复可用体力。</li>
+</ul>
+<h3 id="44-physics-model">4.4 物理参数与运动模型（Physics Model）</h3>
+<blockquote>
+<p><strong>目标风格</strong>：以偏写实的「登山感」为基调（重力感、滑落风险真实可信），同时引入一组友好的输入容错机制（coyote time、跳跃缓冲、攀爬吸附辅助等），降低操作挫败。</p>
+</blockquote>
+<h4 id="441">4.4.1 全局物理常量</h4>
+<p>本节为角色运动相关的物理参数定义建议，统一存于 <code>CA_BASE_PHYSICS</code> 常量表中。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">常量名</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">单位</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">备注示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>GRAVITY</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">m/s²</td>
+<td style="text-align: left;">世界重力加速度</td>
+<td style="text-align: left;">建议略高于现实，如 11–13，用于强调坠落危险感</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TERMINAL_VELOCITY_FALL</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">m/s</td>
+<td style="text-align: left;">角色终端下落速度上限</td>
+<td style="text-align: left;">控制最大落地速度与受伤阈值</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GROUND_FRICTION</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">地面摩擦系数</td>
+<td style="text-align: left;">影响刹车距离、停下滑步长度</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>AIR_CONTROL_FACTOR</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">空中水平控制系数</td>
+<td style="text-align: left;">0 表示不可控，1 表示与地面相同，推荐 0.3–0.5</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SLOPE_MAX_WALK_ANGLE</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">°</td>
+<td style="text-align: left;">仍视为「可行走地面」的最大坡度</td>
+<td style="text-align: left;">超过则视为滑面或需攀爬</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SLOPE_MIN_CLIMB_ANGLE</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">°</td>
+<td style="text-align: left;">可判定为「可攀爬斜面」的最小坡度</td>
+<td style="text-align: left;">介于 WALK_ANGLE 与 90° 之间的区间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SLOPE_SLIDE_FRICTION</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">在超陡斜面上滑动时的有效摩擦系数</td>
+<td style="text-align: left;">决定滑落速度</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ACCEL_GROUND</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">m/s²</td>
+<td style="text-align: left;">地面起步加速度</td>
+<td style="text-align: left;">控制起步“发力感”，偏写实可略低，依赖预判</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DECEL_GROUND</code></td>
+<td style="text-align: left;">float</td>
+<td style="text-align: left;">m/s²</td>
+<td style="text-align: left;">地面减速度</td>
+<td style="text-align: left;">控制刹停距离，配合 <code>GROUND_FRICTION</code> 调整</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实现建议</strong>：</p>
+<ul>
+<li><strong>速度整形</strong>：地面水平速度不应瞬间从 0 切到 <code>MOVE_SPEED</code>/<code>RUN_SPEED</code>，而是通过 <code>ACCEL_GROUND</code> 逐帧逼近；同理减速通过 <code>DECEL_GROUND</code> 和 <code>GROUND_FRICTION</code> 渐停，形成轻微「滑步感」，体现写实登山的重量感。</li>
+<li><strong>终端速度与坠落后果</strong>：当垂直速度趋近 <code>TERMINAL_VELOCITY_FALL</code> 后不再继续加速，下落落地时可与受伤或 Knockdown 逻辑挂钩（是否启用受伤机制由《状态系统》等规范决定，本处仅定义速度上限）。</li>
+</ul>
+<h4 id="442">4.4.2 斜坡与斜面判定</h4>
+<p>为统一「可行走地面」「滑落斜坡」「可攀爬斜面」的逻辑，采用法线夹角进行划分：</p>
+<ul>
+<li>若地面法线与重力方向夹角 ( \theta ) 满足：  <ul>
+<li>( \theta \le SLOPE_MAX_WALK_ANGLE )：判定为<strong>可行走地面</strong>，角色使用「站立/移动/奔跑」逻辑；在极限角度附近可产生轻微向下滑动。</li>
+<li>( SLOPE_MAX_WALK_ANGLE &lt; \theta &lt; SLOPE_MIN_CLIMB_ANGLE )：判定为<strong>危险斜坡</strong>，可行走但存在明显滑落趋势；<code>SLOPE_SLIDE_FRICTION</code> 决定滑落速度。</li>
+<li>( \theta \ge SLOPE_MIN_CLIMB_ANGLE )：判定为<strong>可攀爬斜面</strong>，可触发「攀爬」或「攀爬跳跃」。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>与 4.1 对齐</strong>：当角色位于「可攀爬斜面」上并满足 4.1 中的前置条件时，允许通过「点击鼠标左键 / 虚拟攀爬按钮」进入攀爬状态。当角色在「危险斜坡」上未进入攀爬状态，仅以行走逻辑尝试前进时，应产生向下滑落趋势，推动玩家做出「攀爬」或「绕路」决策。</p>
+<p><strong>所见即所得原则</strong>：具体哪一片地形被配置为可行走面、危险斜坡或可攀爬斜面，需在《环境与关卡》中通过材质/特效（如日照、积雪、落樱等）建立稳定的视觉语言，避免出现「外观像安全地，却按危险区判定」的冲突情况；本规范只定义角度与行为，不单独引入与视觉相悖的隐藏规则。</p>
+</blockquote>
+<h4 id="443">4.4.3 攀爬状态中的运动</h4>
+<p>在攀爬状态下，角色沿斜面切线/法线方向运动，受摩擦力和体力双重约束：</p>
+<ul>
+<li><strong>沿斜面移动速度</strong>：可定义 <code>CLIMB_MOVE_SPEED</code>（另行加入 CA 表）作为基准速度，受斜面角度和 <code>SLOPE_SLIDE_FRICTION</code> 调整。角度越大、摩擦越小，越难向上攀登。</li>
+<li><strong>向上攀爬的失败反馈</strong>：当体力不足或角度/摩擦组合导致有效上攀速度低于某阈值时，可触发「原地打滑」或缓慢下滑；具体表现由 Demo 调优。</li>
+<li><strong>攀爬跳跃轨迹</strong>：向上/侧向时，以 <code>CLIMB_JUMP_HEIGHT</code> 为基础高度，再乘 <code>斜面摩擦力系数</code> 与「起跳方向与法线夹角」的函数，保证「顺着墙往上蹬比侧跃更高」。向下时不受体力约束，以较小抛物线脱离斜面，强化“撤退安全”的策略选项。</li>
+</ul>
+<h4 id="444">4.4.4 输入容错与吸附辅助</h4>
+<p>在写实基调之上，引入以下「友好机制」减少挫败：</p>
+<ul>
+<li><strong>Coyote Time（悬空缓冲）</strong>：当角色刚刚离开可站立边缘进入下落状态的极短时间窗口内（如 0.1–0.2 秒），若玩家按下跳跃键，仍视为在地面起跳，使用 <code>JUMP_HEIGHT</code> 计算轨迹。该时间窗口可用 <code>JUMP_COYOTE_TIME</code> 常量定义。</li>
+<li><strong>Jump Buffer（提前按键缓冲）</strong>：当角色还在空中接近地面时，如玩家在 ( t ) 秒内（如 0.1–0.2 秒）提前按下跳跃键，则在角色满足「落地」条件的下一帧自动触发一次跳跃。可用 <code>JUMP_BUFFER_TIME</code> 常量定义。</li>
+<li><strong>攀爬吸附辅助</strong>：当角色在空中接近「可攀爬斜面」且满足：距离斜面小于某阈值（<code>CLIMB_AUTO_SNAP_DISTANCE</code>），且朝向与斜面法线夹角在容差范围内（<code>CLIMB_AUTO_SNAP_ANGLE</code>），且玩家在这段时间内有主动输入「攀爬」操作，则自动将角色位置与姿态「对齐」到斜面上，并进入攀爬状态，避免因几厘米的判定误差导致错失攀爬机会。</li>
+<li><strong>边缘吸附与翻越判定容差</strong>：对 4.1 中的「自动站立」「翻越动作」，在垂直方向上引入小范围容差（如 ±10–20 cm），使用 <code>AUTO_STAND_HEIGHT_TOLERANCE</code>、<code>VAULT_HEIGHT_TOLERANCE</code> 常量控制，防止因模型/地形微小误差导致体验不一致。</li>
+</ul>
+<blockquote>
+<p><strong>体验原则</strong>：写实部分主要通过「重力感、滑落风险、加减速与摩擦」体现。友好部分主要通过「输入缓冲、吸附与容差」隐藏判定苛刻性，让玩家感受到的是“自己预判得不错”，而不是“被系统坑了半个身位”。</p>
+</blockquote>
+<hr />
+<h2 id="5">5. 与系统架构的映射</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">系统</th>
+<th style="text-align: left;">本规范覆盖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">[SYS_CLIMB] 攀爬与移动</td>
+<td style="text-align: left;">抓取、释放、借力、支点判定、攀爬与攀爬跳跃体力消耗、物理与运动模型</td>
+</tr>
+<tr>
+<td style="text-align: left;">[SYS_COOP] 协作与救援</td>
+<td style="text-align: left;">托举、拉拽、拉上去、协作节点、互助行为与关系门控；见《02_协作与救援》</td>
+</tr>
+<tr>
+<td style="text-align: left;">[SYS_STATE] 状态系统</td>
+<td style="text-align: left;">体力消耗与 Action_Bar 对接；见《04_状态系统》</td>
+</tr>
+<tr>
+<td style="text-align: left;">[SYS_ROUTE] 路线/关卡</td>
+<td style="text-align: left;">主线/分支划分、协作节点配置；见《03_环境与关卡》</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-unreal-engine-mapping-to-ue">6. Unreal Engine 实现约定（Mapping to UE）</h2>
+<blockquote>
+<p><strong>目的</strong>：本节将本规范中的关键常量与 UE <code>CharacterMovementComponent</code> 及相关系统的参数建立一一对应关系，方便程序与 TA 在不额外修改物理引擎的前提下直接落地。</p>
+</blockquote>
+<h3 id="61-ue">6.1 常量 ↔ UE 参数对照表</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">设计常量 / 概念</th>
+<th style="text-align: left;">UE 参数 / 实现位置</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>MOVE_SPEED</code></td>
+<td style="text-align: left;"><code>CharacterMovement.MaxWalkSpeed</code>（行走态）</td>
+<td style="text-align: left;">地面基础移动速度。进入非奔跑状态时设置为该值。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>RUN_SPEED</code></td>
+<td style="text-align: left;"><code>CharacterMovement.MaxWalkSpeed</code>（奔跑态）</td>
+<td style="text-align: left;">按住 Shift / 奔跑输入时，将 <code>MaxWalkSpeed</code> 切换为该值。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>STAMINA_MAX</code> / <code>CurrentStamina</code></td>
+<td style="text-align: left;">角色自定义字段（C++/蓝图变量）</td>
+<td style="text-align: left;">体力系统不依赖 UE 内置字段，由角色/Ability 系统维护。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>STAMINA_COST_RUN_PER_SEC</code></td>
+<td style="text-align: left;">角色 Tick / 计时器逻辑</td>
+<td style="text-align: left;">奔跑状态下每秒体力消耗：首帧额外扣一次，其后按秒结算。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>JUMP_HEIGHT</code></td>
+<td style="text-align: left;">通过 <code>CharacterMovement.JumpZVelocity</code> + <code>WorldGravityZ * GravityScale</code> <strong>反推</strong></td>
+<td style="text-align: left;">以设计给定的跳跃高度为主，再计算出对应的 <code>JumpZVelocity</code>，保证高度一致。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GRAVITY</code></td>
+<td style="text-align: left;"><code>WorldSettings.WorldGravityZ</code> + <code>CharacterMovement.GravityScale</code></td>
+<td style="text-align: left;">世界重力与角色缩放的组合，数值上应与本规范的 <code>GRAVITY</code> 对齐。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TERMINAL_VELOCITY_FALL</code></td>
+<td style="text-align: left;"><code>CharacterMovement.MaxFallSpeed</code></td>
+<td style="text-align: left;">最大下落速度上限。可作为坠落受伤/击倒判定的参考。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GROUND_FRICTION</code></td>
+<td style="text-align: left;"><code>CharacterMovement.GroundFriction</code></td>
+<td style="text-align: left;">地面摩擦系数，影响减速与滑步感。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ACCEL_GROUND</code></td>
+<td style="text-align: left;"><code>CharacterMovement.MaxAcceleration</code></td>
+<td style="text-align: left;">地面起步加速度。建议结合手感微调。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DECEL_GROUND</code></td>
+<td style="text-align: left;"><code>CharacterMovement.BrakingDecelerationWalking</code></td>
+<td style="text-align: left;">地面减速度。与 <code>GROUND_FRICTION</code> 一起决定刹停距离。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>AIR_CONTROL_FACTOR</code></td>
+<td style="text-align: left;"><code>CharacterMovement.AirControl</code></td>
+<td style="text-align: left;">空中水平控制能力，推荐 0.3–0.5，体现有限姿态修正。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SLOPE_MAX_WALK_ANGLE</code></td>
+<td style="text-align: left;"><code>CharacterMovement.WalkableFloorAngle</code></td>
+<td style="text-align: left;">最大可视为「可行走地面」的坡度；超过视为危险斜坡或需攀爬区域。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SLOPE_MIN_CLIMB_ANGLE</code></td>
+<td style="text-align: left;">自定义攀爬检测逻辑中使用（墙面法线角度）</td>
+<td style="text-align: left;">判定「可攀爬斜面」的最小坡度阈值，不直接对应 UE 内置字段。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>SLOPE_SLIDE_FRICTION</code></td>
+<td style="text-align: left;">自定义逻辑：在危险斜坡上调整 <code>GroundFriction</code> 或施加向下速度</td>
+<td style="text-align: left;">决定在危险斜坡上的滑落速度与难度。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CLIMB_STAMINA_COST_PER_SEC</code></td>
+<td style="text-align: left;">攀爬 MovementMode 下的体力消耗逻辑</td>
+<td style="text-align: left;">每秒攀爬体力消耗，在 <code>MOVE_Climb</code> 的 Tick 中结算。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CLIMB_JUMP_HEIGHT</code></td>
+<td style="text-align: left;">在攀爬状态下计算起跳速度向量的基础高度</td>
+<td style="text-align: left;">结合墙面法线与摩擦系数计算「攀爬跳跃」的实际抛物线。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CLIMB_JUMP_STAMINA_COST</code></td>
+<td style="text-align: left;">攀爬跳跃逻辑</td>
+<td style="text-align: left;">向上/侧向攀爬跳跃的体力消耗。向下不消耗体力。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CLIMB_MOVE_SPEED</code>（建议新增）</td>
+<td style="text-align: left;">攀爬 MovementMode 下的自定义速度变量</td>
+<td style="text-align: left;">控制沿斜面上下/左右移动速度。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>JUMP_COYOTE_TIME</code></td>
+<td style="text-align: left;">角色自定义字段 + MovementMode 切换回调</td>
+<td style="text-align: left;">从 <code>Walking</code> → <code>Falling</code> 后的时窗内仍允许触发跳跃。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>JUMP_BUFFER_TIME</code></td>
+<td style="text-align: left;">角色自定义字段 + 跳跃输入缓存</td>
+<td style="text-align: left;">在落地前短时间内预先按下跳跃键，落地后自动触发一次跳跃。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CLIMB_AUTO_SNAP_DISTANCE</code></td>
+<td style="text-align: left;">攀爬检测用的 Trace 半径 / 距离阈值</td>
+<td style="text-align: left;">决定空中/行走接近斜面时是否允许「吸附式」进入攀爬。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CLIMB_AUTO_SNAP_ANGLE</code></td>
+<td style="text-align: left;">攀爬检测逻辑中对角色朝向与墙面法线夹角的容差</td>
+<td style="text-align: left;">角色朝向与墙面差距在该角度内时，允许自动吸附。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>AUTO_STAND_HEIGHT_TOLERANCE</code></td>
+<td style="text-align: left;">自动站立判定中的高度容差</td>
+<td style="text-align: left;">攀爬脚部触地时，容忍的小高度差，决定是否自动切回站立。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>VAULT_HEIGHT_TOLERANCE</code></td>
+<td style="text-align: left;">翻越动作判定中的高度容差</td>
+<td style="text-align: left;">攀爬头部接近上方可站立区域时的高度容差，决定是否触发翻越。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-movementmode">6.2 攀爬 MovementMode 实现约定（简要）</h3>
+<ul>
+<li><strong>自定义 MovementMode</strong>：在 <code>CharacterMovementComponent</code> 中新增 <code>MOVE_Custom</code> 子类型 <code>MOVE_Climb</code>，并在 <code>PhysCustom</code> 中实现具体攀爬行为。</li>
+<li><strong>状态切换</strong>：<code>Walking</code> / <code>Falling</code> → <code>MOVE_Climb</code>：满足「可攀爬斜面 + 距离阈值 + 玩家攀爬输入」条件时触发。<code>MOVE_Climb</code> → <code>Falling</code> / <code>Walking</code>：体力耗尽、松手、攀爬跳跃或达到「自动站立/翻越」条件时退出。</li>
+<li><strong>输入映射</strong>：在 <code>MOVE_Climb</code> 下，W/S/A/D 重新映射为「沿斜面上下/左右位移」，空格触发「攀爬跳跃」，具体规则见 4.1 与 4.4.3。</li>
+<li><strong>体力与失败反馈</strong>：所有与体力相关的行为结算（奔跑、攀爬、攀爬跳跃）以本规范的 CA 表为准，UE 仅作为数值载体与物理解算器；当 <code>CurrentStamina &lt;= 0</code> 时，强制阻止新的高消耗动作，并通过 MovementMode 切换与动画表现「滑落 / 撤退」。</li>
+</ul>
+<blockquote>
+<p><strong>实现说明</strong>：如 UE 内置字段与本规范存在冲突，以本规范为准；程序可在不修改引擎源码的前提下，通过组合 <code>CharacterMovementComponent</code>、自定义 MovementMode、Trace 检测与体力系统实现全部预期行为。</p>
+</blockquote>
+<hr />
+<h2 id="7">7. 反馈设计（攀爬与体力相关）</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">视觉</th>
+<th style="text-align: left;">听觉</th>
+<th style="text-align: left;">触觉（震动）</th>
+<th style="text-align: left;">其他</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">攀爬跳跃成功</td>
+<td style="text-align: left;">角色在起跳瞬间辅以轻微「拉伸」动作，落点有短暂的落脚尘土/碎石特效；在危险边缘成功落脚时，可附加一次小幅「身体晃动+稳住」动画</td>
+<td style="text-align: left;">清晰的「蹬墙」与「落地」两段式音效；在成功跨越高风险间隙时，加一层轻微上扬的提示音</td>
+<td style="text-align: left;">手柄/移动设备在起跳瞬间给一次短促震动，在危险落点稳住时给一次略长但柔和的震动</td>
+<td style="text-align: left;">整体反馈时长控制在 <code>{{CLIMB_JUMP_FEEDBACK_MS}}</code> 毫秒内，确保节奏干脆不过拖</td>
+</tr>
+<tr>
+<td style="text-align: left;">危险攀爬失败但可重试</td>
+<td style="text-align: left;">角色在墙面上出现明显的「打滑」动画，附带少量碎石滑落；滑落过程中保持姿态可见、便于玩家观察失误原因</td>
+<td style="text-align: left;">增加一段「打滑」摩擦声，结束时加一小段低沉的落地/撞击声，提示失败但不过分惩罚</td>
+<td style="text-align: left;">由轻到重的连续震动，引导玩家感受到「失去抓地」到「落地」的过程</td>
+<td style="text-align: left;">在失败节点附近自动略微放缓镜头追随，便于玩家看清支点与角度；不弹出强提示，仅在多次失败后考虑给出轻量提示</td>
+</tr>
+<tr>
+<td style="text-align: left;">体力即将耗尽（攀爬中）</td>
+<td style="text-align: left;">Action_Bar 中可用体力段逐步变窄，并在接近阈值 <code>{{STAMINA_LOW_THRESHOLD}}</code> 时开始轻微闪烁；角色攀爬动作略显吃力（幅度减小、晃动增加）</td>
+<td style="text-align: left;">心跳声或呼吸声逐渐加重，并叠加微弱的环境低频提示音；不影响主 BGM</td>
+<td style="text-align: left;">体力接近耗尽时，以低频节奏性震动提醒（如每 <code>{{STAMINA_WARN_INTERVAL_MS}}</code> 毫秒一次轻触）</td>
+<td style="text-align: left;">体力不足时禁止新的高消耗动作（如向上攀爬跳跃），仅允许相对安全的撤退/下滑；与《状态系统》中 Action_Bar 逻辑保持一致</td>
+</tr>
+<tr>
+<td style="text-align: left;">体力耗尽导致被动滑落</td>
+<td style="text-align: left;">角色从攀爬态自然转为「控制下滑」动画，而非立即跌落；在接近可站立区域时自动调整姿态准备落地</td>
+<td style="text-align: left;">滑落过程的摩擦声稍显尖锐，落地时配合一声明显但不刺耳的落地/闷哼音效</td>
+<td style="text-align: left;">滑落开始时给一次明显的中等强度震动，落地时根据落差再补一次震动</td>
+<td style="text-align: left;">UI 侧在体力耗尽瞬间短暂高亮 Action_Bar 的空槽，向玩家明确「失败原因是体力」而非判定；与《状态系统》中的占段表现对齐</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>说明：托举、拉拽等协作动作的反馈设计见《协作与救援》中的「反馈设计」小节，本节聚焦单人攀爬与体力相关反馈。</p>
+</blockquote>
+<hr />
+<h2 id="8-micro-loop">8. 输入与节奏校验（Micro Loop）</h2>
+<h3 id="81">8.1 现有攀爬输入方案的认知负荷</h3>
+<ul>
+<li>PC 端采用「方向键 + 长按鼠标左键」进入攀爬，移动端采用「左摇杆方向 + 长按『行动/攀爬』按钮」进入攀爬：  </li>
+<li>优点：玩家在进入攀爬时必须给出明确朝向输入，可减少「不小心贴墙就吸上去」的误触，攀爬的意图更清晰；  </li>
+<li>缺点：对新手而言是「组合输入」，需要理解「方向 + 长按」两个条件，初次上手的认知负荷略高于「单键进入」。 |</li>
+</ul>
+<h3 id="82">8.2 保留方案与教学引导</h3>
+<ul>
+<li><strong>是否保留</strong>：在当前版本中<strong>保留</strong>「方向 + 长按」的进入方式，作为写实登山感与输入稳定性的折中方案。  </li>
+<li><strong>教学与引导设计</strong>：  </li>
+<li>新手引导中在首次进入可攀爬斜面时，强制展示一次「演示动画 + 文本」：  <ul>
+<li>文本如：「按住方向键并长按鼠标左键，可以抓住眼前的岩壁进行攀爬。」  </li>
+</ul>
+</li>
+<li>在可攀爬表面附近显示轻量化图标提示（如短暂出现方向键 + 鼠标左键/虚拟攀爬按钮的组合图标），在玩家成功攀爬数次后自动减弱或关闭。  </li>
+<li>对多次在同一位置下落失败的玩家，允许在第三或第四次失败后弹出一次「轻量提示气泡」，再次说明组合输入方式。</li>
+</ul>
+<h3 id="83-micro-loop-055">8.3 典型 Micro Loop 片段示例（0.5–5 秒）</h3>
+<ul>
+<li><strong>片段 A：基础攀爬段落</strong>  </li>
+<li>观察：玩家停在墙根处，视角略微上仰，看到一排清晰支点。  </li>
+<li>决策：判断路线为「直上+小侧移」，右手调整视角对准墙面。  </li>
+<li>行动：按住前进键 + 长按鼠标左键/攀爬按钮进入攀爬，短促输入 W/A 做两次移动。  </li>
+<li>
+<p>反馈：角色贴墙攀登的动画、体力条缓慢下降、小幅石屑效果，玩家感知到「自己在稳步向上」。  </p>
+</li>
+<li>
+<p><strong>片段 B：高风险攀爬跳跃</strong>  </p>
+</li>
+<li>观察：攀爬至中段，看到上方有一处宽间隙，单纯沿墙难以绕过。  </li>
+<li>决策：判断需要攀爬跳跃跨越；确认体力条剩余充足。  </li>
+<li>行动：在攀爬态下调整到合适位置，按空格触发攀爬跳跃。  </li>
+<li>
+<p>反馈：角色做出明显蹬墙动作，镜头略微拉近，音效与震动强调成功落点；若失败，则播放打滑+滑落反馈，并快速回到可重试位置。  </p>
+</li>
+<li>
+<p><strong>片段 C：体力预警与撤退</strong>  </p>
+</li>
+<li>观察：在长攀爬段中看到体力条接近阈值，且 Action_Bar 开始闪烁。  </li>
+<li>决策：放弃向上强行突破，改为寻找最近的可站立平台作为「中继点」。  </li>
+<li>行动：停止向上移动，沿斜面缓慢下移或侧移至安全位置后退出攀爬。  </li>
+<li>反馈：体力预警音与震动逐步减弱，回到地面站立状态，给玩家一段短暂喘息窗口。</li>
+</ul>
+<h3 id="84-vs">8.4 高精度 vs 高宽容度定位</h3>
+<ul>
+<li><strong>攀爬与支点选择</strong>：偏<strong>高精度</strong>——玩家需要通过观察支点与斜面角度，做出相对准确的路径选择与输入；  </li>
+<li><strong>输入容错策略</strong>：通过 Coyote Time、Jump Buffer、攀爬吸附辅助等机制，将判定上的苛刻隐藏在系统内部，让玩家感觉「自己预判得好」，而不是被输入细节惩罚。  </li>
+<li><strong>协作相关动作（托举/拉拽）</strong>：偏<strong>高宽容度</strong>——在满足范围与关系门控的前提下，由系统自动选择合理目标与落脚点，优先保证「触发成功」；具体反馈与判定细节见《协作与救援》。  </li>
+</ul>
+<blockquote>
+<p>小结：Micro Loop 侧重让玩家在 0.5–5 秒内完成「看清→决定→执行→得到明确反馈」的一次攀爬/跳跃/撤退决策；攀爬本身保持较高精度要求，而通过输入容错与反馈设计减少不必要的挫败。</p>
+</blockquote>
+<hr />
+<h2 id="9-3c">9. 3C 与相机规则对接</h2>
+<blockquote>
+<p>本节仅给出与攀爬/协作强相关的 3C 约定，完整参数与实现以《3C 规范》为准。</p>
+</blockquote>
+<h3 id="91">9.1 相机基础规则</h3>
+<ul>
+<li><strong>视角模式</strong>：采用第三人称越肩/跟随相机，角色始终位于画面偏下区域，保留足够上方空间用于观察路线与支点。  </li>
+<li><strong>相机阻尼与跟随</strong>：  </li>
+<li>水平旋转采用中等阻尼，避免镜头过于「生硬跟随」导致眩晕；  </li>
+<li>垂直旋转在仰视时可略微降低灵敏度，帮助玩家稳定锁定远处支点。  </li>
+<li><strong>碰撞与穿模处理</strong>：  </li>
+<li>相机与环境产生碰撞时，采用「向前推近 + 轻微改高」方案，保证角色仍可见；  </li>
+<li>在极端狭窄环境中可短时切换为更近的肩摄或半俯视，待离开后自动还原。</li>
+</ul>
+<h3 id="92">9.2 攀爬状态下的相机行为</h3>
+<ul>
+<li><strong>进入攀爬瞬间</strong>：  </li>
+<li>相机轻微拉远并抬高，以便玩家同时看到角色与上方部分路线；  </li>
+<li>禁止瞬时大幅切换视角模式，过渡时长控制在 <code>{{CAMERA_CLIMB_TRANSITION_MS}}</code> 毫秒以内。  </li>
+<li><strong>沿斜面移动时</strong>：  </li>
+<li>相机以角色为圆心在斜面法线附近做小幅平滑绕行，优先保证「角色与下一个支点」同时在视野内；  </li>
+<li>当玩家频繁左右调整时，限制相机水平摆动的最大角速度，避免出现眩晕感。  </li>
+<li><strong>攀爬跳跃</strong>：  </li>
+<li>起跳瞬间允许轻微的「预判式拉远」，便于玩家判断落点；  </li>
+<li>落点稳定后在 <code>{{CAMERA_CLIMB_JUMP_SETTLE_MS}}</code> 毫秒内恢复到常规攀爬视角。</li>
+</ul>
+<h3 id="93">9.3 协作与救援状态下的相机行为</h3>
+<ul>
+<li><strong>托举</strong>：  </li>
+<li>仅对<strong>发起托举的一方玩家</strong>启用相机辅助：托举者相机略微向上抬高并拉近，被托举者相机仅做极轻微调整，以免打乱其对路线的观察。  </li>
+<li>托举期间限制相机剧烈摇摆，避免在小平台上产生晕眩。  </li>
+<li><strong>拉拽/拉上去</strong>：  </li>
+<li>优先保证<strong>发起拉拽/拉上去的一方</strong>视角稳定，仅对其相机在动作开始与结束的短时间内做轻微平移，帮助看清最终站位；  </li>
+<li>该同步效果不得超过 <code>{{CAMERA_COOP_PULL_MAX_OFFSET}}</code> 的角度/距离上限，防止玩家失去方向感。  </li>
+<li><strong>背负救援</strong>：  </li>
+<li>背负者相机略微拉远并降低，强调负重与行动难度；  </li>
+<li>
+<p>在狭窄区域内优先保证角色与脚下落脚点清晰可见。</p>
+</li>
+<li>
+<p><strong>多协作同时发生时</strong>：  </p>
+</li>
+<li>当同屏存在多组托举/拉拽等协作动作同时发生时，为避免相机频繁调整导致眩晕，仅对当前玩家参与且为「发起者」的一组协作应用上述相机辅助；旁观者与其他协作者保持常规相机逻辑。</li>
+</ul>
+<h3 id="94-vs-3c">9.4 高精度 vs 高宽容度在 3C 中的体现</h3>
+<ul>
+<li><strong>高精度部分（攀爬、支点选择）</strong>：  </li>
+<li>相机需提供足够的空间与清晰度让玩家观察支点布局，避免因镜头遮挡导致「看不清」的误伤；  </li>
+<li>鼠标/视角灵敏度在默认档位下即可精确对准支点，支持玩家在《3C 规范》中进一步微调。  </li>
+<li><strong>高宽容度部分（托举、拉拽、救援）</strong>：  </li>
+<li>相机与输入共同承担「对齐」工作——通过自动对齐、轻微平移与轮廓高亮，让玩家即便在粗略对准时也能稳定完成协作；  </li>
+<li>与《协作与救援》中高宽容度判定规则保持一致，相机绝不增加额外精度负担。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.path", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

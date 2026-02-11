@@ -1,0 +1,2796 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="梦山 DreamMountain 立项企划、技术架构与设计规范">
+      
+      
+        <meta name="author" content="DreamMountain Team">
+      
+      
+      
+        <link rel="prev" href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/05_SystemArch_%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">
+      
+      
+        <link rel="next" href="../%E6%B8%B8%E6%88%8F%E6%A6%82%E5%BF%B5%E4%B9%A6/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>创意验证书 - 代号梦山 · 项目文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creative-validation-doc" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="代号梦山 · 项目文档" class="md-header__button md-logo" aria-label="代号梦山 · 项目文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            代号梦山 · 项目文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              创意验证书
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/00_%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="md-tabs__link">
+          
+  
+  
+  项目核心
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  立项企划
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83/" class="md-tabs__link">
+          
+  
+  
+  技术架构
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/01_%E6%94%80%E7%88%AC%E4%B8%8E%E7%A7%BB%E5%8A%A8/" class="md-tabs__link">
+          
+  
+  
+  系统设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83_%E8%B7%AF%E7%BA%BF%E4%B8%8E%E5%8D%8F%E4%BD%9C%E8%8A%82%E7%82%B9/" class="md-tabs__link">
+          
+  
+  
+  内容创作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1/00_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1%E7%BB%BC%E8%BF%B0/" class="md-tabs__link">
+          
+  
+  
+  数值设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/00_%E4%B8%96%E7%95%8C%E8%A7%82%E7%BB%BC%E8%BF%B0/" class="md-tabs__link">
+          
+  
+  
+  世界观
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/00_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0%E6%80%BB%E5%88%99/" class="md-tabs__link">
+          
+  
+  
+  资源表现
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08_%E5%85%B6%E4%BB%96/%E8%B7%AF%E5%BE%84%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E/" class="md-tabs__link">
+          
+  
+  
+  其他
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="代号梦山 · 项目文档" class="md-nav__button md-logo" aria-label="代号梦山 · 项目文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    代号梦山 · 项目文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目核心
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目核心
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/00_%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/01_Vision_%E6%84%BF%E6%99%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    愿景
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/02_Pillars_%E8%AE%BE%E8%AE%A1%E6%94%AF%E6%9F%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    设计支柱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/03_Loops_%E6%A0%B8%E5%BF%83%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心循环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/04_ResourceFlow_%E8%B5%84%E6%BA%90%E6%B5%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00_%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83/05_SystemArch_%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    立项企划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    立项企划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创意验证书
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创意验证书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-spark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 创意原点 (The Spark)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-first-principles-excavation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第一性原理挖掘 (First Principles Excavation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 第一性原理挖掘 (First Principles Excavation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-truth-of-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 体验真值 (Truth of Experience)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-demand-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 需求验证 (Demand Validation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 需求验证 (Demand Validation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 受众可触达性与转化假设
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 攀岩 vs 其他协作形式的选择理由 (新增)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 与光遇的明确差异
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4 关系沉淀假设 (新增)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-medium-fit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 媒介契合度 (Medium Fit)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 媒介契合度 (Medium Fit)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-interaction-necessity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 交互必要性 (Interaction Necessity)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-feasibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 可实现性边界 (Feasibility)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 可实现性边界 (Feasibility)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#320-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.0 Demo 范围界定 (新增)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#321-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1 Demo 验证清单 (新增)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-verdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 结论 (Verdict)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B8%B8%E6%88%8F%E6%A6%82%E5%BF%B5%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏概念书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技术架构
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术架构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程技术规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%86%85%E5%AE%B9%E8%A7%84%E5%88%92%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内容规划规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/01_%E6%94%80%E7%88%AC%E4%B8%8E%E7%A7%BB%E5%8A%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01_攀爬与移动
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/02_%E5%8D%8F%E4%BD%9C%E4%B8%8E%E6%95%91%E6%8F%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02_协作与救援
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/03_%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%85%B3%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03_环境与关卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/04_%E7%8A%B6%E6%80%81%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04_状态系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/05_%E9%81%93%E5%85%B7%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05_道具系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/06_%E7%BB%B3%E7%B4%A2%E4%B8%8E%E6%94%80%E7%99%BB%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06_绳索与攀登工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/07_%E8%BF%9B%E5%BA%A6%E4%B8%8E%E5%A4%8D%E6%B4%BB%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07_进度与复活点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/08_%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08_关系系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/09_%E5%95%86%E4%B8%9A%E4%BB%98%E8%B4%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09_商业付费
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E6%A0%B8%E5%BF%83%E7%8E%A9%E6%B3%95%E8%A7%84%E8%8C%83_%E5%8F%8C%E4%BA%BA%E6%83%85%E5%A2%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心玩法规范_双人情境
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内容创作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    内容创作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83_%E8%B7%AF%E7%BA%BF%E4%B8%8E%E5%8D%8F%E4%BD%9C%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关卡设计(路线与协作节点)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%8F%99%E4%BA%8B%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    叙事规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数值设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1/00_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1%E7%BB%BC%E8%BF%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值设计综述
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    世界观
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/00_%E4%B8%96%E7%95%8C%E8%A7%82%E7%BB%BC%E8%BF%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观综述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/01_%E5%8E%86%E5%8F%B2%E5%B9%B4%E8%A1%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    历史年表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/02_%E5%9C%B0%E7%90%86%E5%BF%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    地理志
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/03_%E5%8A%BF%E5%8A%9B%E4%B8%8E%E7%A7%8D%E6%97%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    势力与种族
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/04_%E5%90%8D%E8%AF%8D%E6%9C%AF%E8%AF%AD%E8%A1%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    名词术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/05_%E4%B8%96%E7%95%8C%E8%A7%82%E9%97%AD%E7%8E%AF%E6%A3%80%E6%9F%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观闭环检查记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源表现
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源表现
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/00_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0%E6%80%BB%E5%88%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源表现总则
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/%E7%95%8C%E9%9D%A2%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    界面规范
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/%E8%B5%84%E6%BA%90%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源规范
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    其他
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E8%B7%AF%E5%BE%84%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路径结构说明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E6%8E%92%E7%89%88%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    排版规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E7%BD%91%E9%A1%B5%E5%8F%91%E5%B8%83%E4%B8%8E%E5%8D%8F%E4%BD%9C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网页发布与协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E7%AD%96%E5%88%92%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    策划更新操作流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-spark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 创意原点 (The Spark)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-first-principles-excavation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 第一性原理挖掘 (First Principles Excavation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 第一性原理挖掘 (First Principles Excavation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-truth-of-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 体验真值 (Truth of Experience)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-demand-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 需求验证 (Demand Validation)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 需求验证 (Demand Validation)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 受众可触达性与转化假设
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 攀岩 vs 其他协作形式的选择理由 (新增)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 与光遇的明确差异
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4 关系沉淀假设 (新增)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-medium-fit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 媒介契合度 (Medium Fit)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 媒介契合度 (Medium Fit)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-interaction-necessity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 交互必要性 (Interaction Necessity)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-feasibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 可实现性边界 (Feasibility)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 可实现性边界 (Feasibility)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#320-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.0 Demo 范围界定 (新增)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#321-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1 Demo 验证清单 (新增)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-verdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 结论 (Verdict)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="./" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    立项企划
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="creative-validation-doc">创意验证书 (Creative Validation Doc)</h1>
+<blockquote>
+<p><strong>文档状态</strong>: 已通过（补强中）
+<strong>创建日期</strong>: 2026-02-07
+<strong>最近补强</strong>: 2026-02-08 — 光遇流失归因假设（年龄/多人体验/内容匹配期）
+<strong>项目</strong>: 梦山 (DreamMountain)</p>
+</blockquote>
+<hr />
+<h2 id="1-the-spark">1. 创意原点 (The Spark)</h2>
+<ul>
+<li><strong>原始描述</strong>:<ul>
+<li>切入《光遇》2.6 亿流失用户市场，用《Peak》验证过的「强合作攀岩玩法」解决社交游戏缺乏游戏性的痛点，并在中期后优化《光遇》缺乏双人玩法的困境。</li>
+</ul>
+</li>
+<li><strong>出发角度</strong>: 受众 + 玩法 + 市场缺口</li>
+</ul>
+<hr />
+<h2 id="2-first-principles-excavation">2. 第一性原理挖掘 (First Principles Excavation)</h2>
+<h3 id="21-truth-of-experience">2.1 体验真值 (Truth of Experience)</h3>
+<p>剥离掉攀岩、山峰、美术风格后，玩家<strong>真正渴望</strong>的是：<strong>在不确定的旅途中，因一次真实的互助而与陌生人建立信任，并最终拥有「固定的人」一起经历预设的双人/多人情境</strong>。即：从「偶然的善意」到「可预期的羁绊」。</p>
+<p><strong>设计前提澄清</strong>：
+*   <strong>光遇最成功之处</strong>：把「从陌生人成为好朋友」做到极致；梦山关注光遇与 Peak 各自的成功点，<strong>组队/双人体验的前提正是光遇式社交带来的挚友关系</strong>——即 Peak 式协作发生在「已经愿意一起玩的人」之间。
+*   <strong>前期以单人为主</strong>：多数玩家前期以<strong>单人</strong>体验为主。在此历程中，陌生人提供<strong>友善但非必需</strong>的互助（类似光遇：可帮可不帮，不绑架进度）。
+*   <strong>保护社恐与独行体验</strong>：不强制社交、不剥夺「一个人也能完整玩」的孤独感；社恐与偏好独处的玩家应被保护，可选地接受善意而非被系统推向组队。</p>
+<h3 id="22-demand-validation">2.2 需求验证 (Demand Validation)</h3>
+<ul>
+<li><strong>目标受众 (Target Audience)</strong>: 光遇流失用户（尤其大学离校后、25–35 岁因内容幼稚与玩法不足而流失）、偏好情感与社交但不满「只有跑图/收集」的玩家；渴望有「一起做事」而非「一起挂机」的轻度 MMORPG 用户。</li>
+<li><strong>竞品现状 (Market Context)</strong>:<ul>
+<li>《光遇》：强情感与社交氛围，但核心玩法偏跑图/收集，游戏性不足；双人/多人情境薄弱；对男性与 25–35 岁筛选过重，流失用户规模大（详见 2.2.1 流失归因）。</li>
+<li>《Peak》：验证了「强合作攀岩」的可玩性与协作手感，但非情感向 MMORPG。</li>
+</ul>
+</li>
+<li><strong>分析</strong>: 社交游戏缺乏「必须协作才能过关」的游戏性，情感游戏缺乏「双人专属内容」的长期锚点。梦山用攀岩+互助把「协作」做成核心玩法，用预设双人/多人情境解决关系沉淀。</li>
+</ul>
+<h4 id="221">2.2.1 受众可触达性与转化假设</h4>
+<p><strong>光遇用户画像（参考）</strong>:
+| 维度 | 光遇特征 | 备注 |
+| 性别 | 男性不足 20%，女性约 80% | 远低于大盘（大盘约男 55% / 女 45%） |
+| 年龄 | 25 岁以下超 90%，30 岁以上不足 5% | 极度年轻化 |
+| 职业 | 高中生 + 大学生合计超 65% | 学生为主体 |
+| 地域 | 新一线、三线城市占比相对较高 | |</p>
+<p><strong>流失归因假设（核心论点）</strong>:
+*   光遇用户随着年龄自然增大（尤其是大学离校后），因「<strong>无法提供更进一步的多人体验</strong>」且「<strong>脱离较幼稚的内容匹配期</strong>」，造成<strong>断崖式流失</strong>。
+*   <strong>关键推论</strong>：这批人<strong>愿意尝试</strong>此类情感社交游戏，只是光遇内容偏幼稚、玩法缺乏深度，不再合适。即：<strong>需求仍在，供给不匹配</strong>。</p>
+<p><strong>数据支撑</strong>:
+*   留存调查：愿意留下因「朋友/伴侣一起玩」占 32%，但「玩法没有做任何调整与跟进」；社交乐趣随游戏时长递增（1 年半–2 年达 54%），探索/挑战乐趣递减。
+*   流失问卷：8 个月用户进入「养老期」；<strong>63% 流失原因为「缺乏长线玩法和内容更新」</strong>。
+*   市场特征：对男性与中青年（25–35）玩家筛选过重；核心 gameplay 偏薄弱；艺术风格偏卡通；收入存在较大提升空间。
+*   赛道判断：非暴力的情感交互赛道远未饱和。</p>
+<p><strong>对梦山的战略含义</strong>:
+*   <strong>机会窗口</strong>：流失用户非「不再要情感社交」，而是渴求「更成熟的多人体验」与「更有深度的玩法」。梦山用强协作攀岩 + 双人/多人情境锚点，可直接回应此缺口。
+*   <strong>风险收敛</strong>：若流失主因是「不再想要此类情感社交」，则梦山无法召回；现有假设指向<strong>相反结论</strong>，需在 Demo 阶段验证：25–35 岁、曾为光遇用户的群体对梦山原型的接受度。</p>
+<ul>
+<li><strong>可触达渠道</strong>: 目标用户当前主要分布在哪些平台/社区？获客预估成本？[待补充]</li>
+<li><strong>转化漏斗假设</strong>: 2.6 亿流失用户中，可触达约 [待补充]%；其中「情感社交 + 渴求强协作 + 已脱离学生期」的精准人群约占 [待补充]%；首月转化率假设 [待补充]%。</li>
+</ul>
+<h4 id="222-vs">2.2.2 攀岩 vs 其他协作形式的选择理由 <em>(新增)</em></h4>
+<ul>
+<li><strong>为何攀岩，而非解谜/战斗/建造？</strong><ul>
+<li>攀岩：物理具象、节奏可控、单点协作清晰（托举/拉拽），失败即「重试」而非「死亡」，挫败感可控；与「旅途、互助、共同克服障碍」的隐喻高度契合。</li>
+<li>解谜：偏智力，协作点分散，难以形成「你托我、我拉你」的具身化信任感。</li>
+<li>战斗：易引入竞争/数值，偏离「纯互助」情感基调；且光遇用户对战斗接受度存疑。</li>
+<li>建造：节奏偏慢，难以在单次会话内形成「我们一起做到了」的高峰体验。</li>
+</ul>
+</li>
+<li><strong>Peak 受众 vs 光遇受众重叠度</strong>: [待补充：两者用户画像重叠假设，及对设计的影响]</li>
+<li><strong>失败耐受度</strong>: 强协作意味着「配合不好会卡关」。光遇用户多为轻度情感向，需在 Demo 中验证：失败惩罚强度、重试成本、挫败感是否在可接受范围内。[待补充：Demo 验证结论]</li>
+</ul>
+<h4 id="223">2.2.3 与光遇的明确差异</h4>
+<p><strong>光遇痛点与梦山应对</strong>:
+| 光遇痛点 | 梦山应对 |
+| :--- | :--- |
+| <strong>前期</strong>: 缺少叙事，独狼与轻社交玩家难以进入；追求无文字表达抬高上手门槛 | <strong>强化叙事</strong>；保留孤独者观光与心理按摩调性，但不牺牲必要引导；攀登天生目标感降低迷失 |
+| <strong>中后期</strong>: 缺少玩法与内容，游戏性、趣味性、目标感不足 | <strong>强化 gameplay</strong>：攀爬过关即核心玩法，每次操作有明确成败；双人强互动关卡（参考 It Takes Two 等）；收集/合成与物资流转可拓展 |
+| <strong>创作者坚持与玩家需求冲突</strong> | 全盘延续核心设定（情感驱动社交 + 艺术化表达），在保持调性前提下补足玩法与内容缺口 |</p>
+<p><strong>继承与差异化</strong>:
+*   <strong>继承</strong>: 陌生人→挚友的社交体验、孤独者的观光之旅与心理按摩调性、情感驱动社交 + 艺术化表达。
+*   <strong>差异化</strong>: 用「协作过关」取代「协作陪伴」；用「双人强互动关卡」取代弱绑定的一起跑图；用「机制锚定的双人情境」取代自发维系；用「天生目标感（攀登）」缓解无文字表达带来的迷失与门槛。</p>
+<h4 id="224">2.2.4 关系沉淀假设 <em>(新增)</em></h4>
+<ul>
+<li><strong>从互助到挚友的转化率</strong>: 单次协作 → 加好友 → 稳定组队的典型漏斗假设 [待补充：各环节转化率]。</li>
+<li><strong>社交疲劳风险</strong>: 强协作伴随沟通与配合成本。需验证：玩家是否会因「必须认真配合」而产生疲惫感。[待补充：设计缓解手段，如异步协作、降低沟通门槛]</li>
+<li><strong>长期锚点强度</strong>: 预设双人/多人情境的内容量、更新频率需足以支撑关系持续活跃。[待补充：内容规划假设]</li>
+</ul>
+<hr />
+<h2 id="3-medium-fit">3. 媒介契合度 (Medium Fit)</h2>
+<h3 id="31-interaction-necessity">3.1 交互必要性 (Interaction Necessity)</h3>
+<p>为什么必须通过<strong>电子游戏</strong>实现？
+*   <strong>分析</strong>: 电影/小说中的「互助」是旁观；只有让玩家<strong>亲自操作攀爬、亲自在关键节点依赖他人或被依赖</strong>，才能产生「我们一起做到了」的归属感。陌生人变挚友的体验依赖<strong>实时协作的成败</strong>与<strong>共同目标</strong>，只能由交互承载。</p>
+<h3 id="32-feasibility">3.2 可实现性边界 (Feasibility)</h3>
+<ul>
+<li><strong>技术</strong>: Peak 已验证攀岩+协作手感；光遇已验证大世界情感社交与多平台。两者结合在技术上有先例。</li>
+<li><strong>风险</strong>: 攀岩物理与网络同步、陌生人匹配与信任建立的节奏设计，需在 Demo 阶段验证。</li>
+</ul>
+<h4 id="320-demo">3.2.0 Demo 范围界定 <em>(新增)</em></h4>
+<p>Demo 圈定以下四个支柱，作为验证与开发的范围边界：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">支柱</th>
+<th style="text-align: left;">范围</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 独立登山</strong></td>
+<td style="text-align: left;">物理模拟下的单人登山过程</td>
+<td style="text-align: left;">玩家在物理模拟下独立完成登山，验证攀爬手感与单人可玩性</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 偶遇陌生人</strong></td>
+<td style="text-align: left;">与陌生玩家的偶遇与初接触</td>
+<td style="text-align: left;">玩家在旅途中偶遇其他陌生玩家，验证偶遇机制与初识体验</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 玩家互动</strong></td>
+<td style="text-align: left;">玩家间的协作与互动</td>
+<td style="text-align: left;">托举、拉拽、借力等互助行为，验证协作手感与关系建立节奏</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. 关卡细化</strong></td>
+<td style="text-align: left;">登山关卡的路线与节点设计</td>
+<td style="text-align: left;">路线拓扑、支点、协作节点、检查点等关卡的细化设计</td>
+</tr>
+</tbody>
+</table>
+<p><strong>逻辑依赖</strong>: 独立登山（1）与关卡细化（4）奠定基础可玩性；偶遇陌生人（2）与玩家互动（3）在此之上验证社交与协作体验。</p>
+<h4 id="321-demo">3.2.1 Demo 验证清单 <em>(新增)</em></h4>
+<p>Demo 必须验证以下假设，任一失败则需重构或终止：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>验证项</th>
+<th>通过标准</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>攀岩+协作手感</td>
+<td>玩家能清晰感知「托举/拉拽」的物理反馈，协作成功时有明确成就感</td>
+<td>[待验证]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>网络同步</td>
+<td>弱网/高延迟（如 150ms+）下协作仍可完成，无频繁断线或动作错位</td>
+<td>[待验证]</td>
+</tr>
+<tr>
+<td>3</td>
+<td>陌生人匹配体验</td>
+<td>匹配到的陌生人能自然进入协作，无需强引导；等待时间可接受</td>
+<td>[待验证]</td>
+</tr>
+<tr>
+<td>4</td>
+<td>失败耐受度</td>
+<td>协作失败时，挫败感在可接受范围内，重试意愿 &gt; 弃坑意愿</td>
+<td>[待验证]</td>
+</tr>
+<tr>
+<td>5</td>
+<td>关系建立节奏</td>
+<td>单次会话内能形成「我们一起做到了」的归属感；有向「加好友」转化的动机</td>
+<td>[待验证]</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>验证方式</strong>: [小范围封闭测试/实验室测试]</li>
+</ul>
+<hr />
+<h2 id="4-verdict">4. 结论 (Verdict)</h2>
+<ul>
+<li><strong>决策</strong>: GO（进入概念设计）</li>
+<li><strong>核心定义 (The Core Definition)</strong>:<ul>
+<li><strong>通过旅途中基于攀岩与互助的协作玩法，交付「陌生人因互助结识为游戏中挚友，并进入预设双人/多人社交情境」的情感与社交体验。</strong></li>
+<li><strong>设计边界</strong>：前期以单人体验为主；陌生人互助为友善且非必需（学光遇）；组队与双人内容建立在「光遇式社交带来挚友」的前提上；保护社恐与独行玩家的孤独感，不强制社交。</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.path", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

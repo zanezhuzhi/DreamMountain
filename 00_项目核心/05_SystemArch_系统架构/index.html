@@ -1,0 +1,3182 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="梦山 DreamMountain 立项企划、技术架构与设计规范">
+      
+      
+        <meta name="author" content="DreamMountain Team">
+      
+      
+      
+        <link rel="prev" href="../04_ResourceFlow_%E8%B5%84%E6%BA%90%E6%B5%81/">
+      
+      
+        <link rel="next" href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E5%88%9B%E6%84%8F%E9%AA%8C%E8%AF%81%E4%B9%A6/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>系统架构 - 代号梦山 · 项目文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#system-architecture" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="代号梦山 · 项目文档" class="md-header__button md-logo" aria-label="代号梦山 · 项目文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            代号梦山 · 项目文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              系统架构
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../00_%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="md-tabs__link">
+          
+  
+  
+  项目核心
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E5%88%9B%E6%84%8F%E9%AA%8C%E8%AF%81%E4%B9%A6/" class="md-tabs__link">
+          
+  
+  
+  立项企划
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83/" class="md-tabs__link">
+          
+  
+  
+  技术架构
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/01_%E6%94%80%E7%88%AC%E4%B8%8E%E7%A7%BB%E5%8A%A8/" class="md-tabs__link">
+          
+  
+  
+  系统设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83_%E8%B7%AF%E7%BA%BF%E4%B8%8E%E5%8D%8F%E4%BD%9C%E8%8A%82%E7%82%B9/" class="md-tabs__link">
+          
+  
+  
+  内容创作
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../05_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1/00_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1%E7%BB%BC%E8%BF%B0/" class="md-tabs__link">
+          
+  
+  
+  数值设计
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/00_%E4%B8%96%E7%95%8C%E8%A7%82%E7%BB%BC%E8%BF%B0/" class="md-tabs__link">
+          
+  
+  
+  世界观
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/00_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0%E6%80%BB%E5%88%99/" class="md-tabs__link">
+          
+  
+  
+  资源表现
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../08_%E5%85%B6%E4%BB%96/%E8%B7%AF%E5%BE%84%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E/" class="md-tabs__link">
+          
+  
+  
+  其他
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="代号梦山 · 项目文档" class="md-nav__button md-logo" aria-label="代号梦山 · 项目文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    代号梦山 · 项目文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    项目核心
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    项目核心
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00_%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心概览
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_Vision_%E6%84%BF%E6%99%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    愿景
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_Pillars_%E8%AE%BE%E8%AE%A1%E6%94%AF%E6%9F%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    设计支柱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_Loops_%E6%A0%B8%E5%BF%83%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心循环
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_ResourceFlow_%E8%B5%84%E6%BA%90%E6%B5%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统架构
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 架构总览 (Executive Summary)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 架构总览 (Executive Summary)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-design-goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 设计目标 (Design Goal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-system-landscape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 系统拓扑图 (System Landscape)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-core-loop-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 核心循环映射 (Core Loop Mapping)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-system-ecology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 系统生态详述 (System Ecology)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 系统生态详述 (System Ecology)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-mod_core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 [MOD_CORE] 核心玩法模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-mod_social" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 [MOD_SOCIAL] 社交与关系模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-mod_economy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 [MOD_ECONOMY] 经济与表现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 支撑与环境系统补充
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-economy-resource-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 资源流转视图 (Economy &amp; Resource Mapping)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-pillar-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 支柱验证矩阵 (Pillar Validation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-development-roadmap-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 开发规划 (Development Roadmap) — Demo 相关
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ecological-health-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 生态健康度检查 (Ecological Health Check)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 生态健康度检查 (Ecological Health Check)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-broken-link-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 断路检测 (Broken Link Audit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-coverage-pillar-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 支柱 coverage (Pillar Coverage)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-loop-closure-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 循环闭合图 (Loop Closure Diagram)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    立项企划
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    立项企划
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E5%88%9B%E6%84%8F%E9%AA%8C%E8%AF%81%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    创意验证书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01_%E7%AB%8B%E9%A1%B9%E4%BC%81%E5%88%92/%E6%B8%B8%E6%88%8F%E6%A6%82%E5%BF%B5%E4%B9%A6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    游戏概念书
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技术架构
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技术架构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程技术规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02_%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/%E5%86%85%E5%AE%B9%E8%A7%84%E5%88%92%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内容规划规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    系统设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/01_%E6%94%80%E7%88%AC%E4%B8%8E%E7%A7%BB%E5%8A%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01_攀爬与移动
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/02_%E5%8D%8F%E4%BD%9C%E4%B8%8E%E6%95%91%E6%8F%B4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02_协作与救援
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/03_%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%85%B3%E5%8D%A1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03_环境与关卡
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/04_%E7%8A%B6%E6%80%81%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04_状态系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/05_%E9%81%93%E5%85%B7%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05_道具系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/06_%E7%BB%B3%E7%B4%A2%E4%B8%8E%E6%94%80%E7%99%BB%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06_绳索与攀登工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/07_%E8%BF%9B%E5%BA%A6%E4%B8%8E%E5%A4%8D%E6%B4%BB%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07_进度与复活点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/08_%E5%85%B3%E7%B3%BB%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08_关系系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/09_%E5%95%86%E4%B8%9A%E4%BB%98%E8%B4%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09_商业付费
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03_%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E6%A0%B8%E5%BF%83%E7%8E%A9%E6%B3%95%E8%A7%84%E8%8C%83_%E5%8F%8C%E4%BA%BA%E6%83%85%E5%A2%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心玩法规范_双人情境
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内容创作
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    内容创作
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%85%B3%E5%8D%A1%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83_%E8%B7%AF%E7%BA%BF%E4%B8%8E%E5%8D%8F%E4%BD%9C%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关卡设计(路线与协作节点)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04_%E5%86%85%E5%AE%B9%E5%88%9B%E4%BD%9C/%E5%8F%99%E4%BA%8B%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    叙事规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值设计
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数值设计
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1/00_%E6%95%B0%E5%80%BC%E8%AE%BE%E8%AE%A1%E7%BB%BC%E8%BF%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数值设计综述
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    世界观
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/00_%E4%B8%96%E7%95%8C%E8%A7%82%E7%BB%BC%E8%BF%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观综述
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/01_%E5%8E%86%E5%8F%B2%E5%B9%B4%E8%A1%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    历史年表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/02_%E5%9C%B0%E7%90%86%E5%BF%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    地理志
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/03_%E5%8A%BF%E5%8A%9B%E4%B8%8E%E7%A7%8D%E6%97%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    势力与种族
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/04_%E5%90%8D%E8%AF%8D%E6%9C%AF%E8%AF%AD%E8%A1%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    名词术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06_%E4%B8%96%E7%95%8C%E8%A7%82/05_%E4%B8%96%E7%95%8C%E8%A7%82%E9%97%AD%E7%8E%AF%E6%A3%80%E6%9F%A5%E8%AE%B0%E5%BD%95/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    世界观闭环检查记录
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源表现
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    资源表现
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/00_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0%E6%80%BB%E5%88%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源表现总则
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/%E7%95%8C%E9%9D%A2%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    界面规范
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07_%E8%B5%84%E6%BA%90%E8%A1%A8%E7%8E%B0/%E8%B5%84%E6%BA%90%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源规范
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    其他
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E8%B7%AF%E5%BE%84%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路径结构说明
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E6%8E%92%E7%89%88%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    排版规范
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E7%BD%91%E9%A1%B5%E5%8F%91%E5%B8%83%E4%B8%8E%E5%8D%8F%E4%BD%9C%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网页发布与协作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08_%E5%85%B6%E4%BB%96/%E7%AD%96%E5%88%92%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    策划更新操作流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 架构总览 (Executive Summary)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 架构总览 (Executive Summary)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-design-goal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 设计目标 (Design Goal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-system-landscape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 系统拓扑图 (System Landscape)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-core-loop-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 核心循环映射 (Core Loop Mapping)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-system-ecology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 系统生态详述 (System Ecology)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 系统生态详述 (System Ecology)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-mod_core" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 [MOD_CORE] 核心玩法模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-mod_social" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 [MOD_SOCIAL] 社交与关系模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-mod_economy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 [MOD_ECONOMY] 经济与表现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 支撑与环境系统补充
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-economy-resource-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 资源流转视图 (Economy &amp; Resource Mapping)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-pillar-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 支柱验证矩阵 (Pillar Validation)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-development-roadmap-demo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 开发规划 (Development Roadmap) — Demo 相关
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ecological-health-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 生态健康度检查 (Ecological Health Check)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 生态健康度检查 (Ecological Health Check)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-broken-link-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 断路检测 (Broken Link Audit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-coverage-pillar-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 支柱 coverage (Pillar Coverage)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-loop-closure-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 循环闭合图 (Loop Closure Diagram)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="导航栏" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    首页
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../00_%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    项目核心
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="system-architecture">梦山 System Architecture / 系统架构白皮书</h1>
+<blockquote>
+<p><strong>文档状态</strong>: Draft
+<strong>核心依赖</strong>: 基于 <code>02_Pillars_设计支柱.md</code> 与 <code>03_Loops_核心循环.md</code>。</p>
+</blockquote>
+<hr />
+<h2 id="1-executive-summary">1. 架构总览 (Executive Summary)</h2>
+<h3 id="11-design-goal">1.1 设计目标 (Design Goal)</h3>
+<ul>
+<li><strong>体验目标</strong>: 支撑「旅途攀爬 → 互助协作 → 结识挚友 → 双人/多人情境」的闭环。</li>
+<li><strong>复杂度控制</strong>: 核心玩法（攀爬+协作）优先；社交与情境模块围绕「固定的人」与「一起做事」展开，避免系统堆砌。</li>
+</ul>
+<h3 id="12-system-landscape">1.2 系统拓扑图 (System Landscape)</h3>
+<div class="highlight"><pre><span></span><code>graph TD
+    subgraph Core [Core Gameplay / 核心玩法模块]
+        Climb[[SYS_CLIMB 攀爬系统]]
+        Cooperate[[SYS_COOP 协作系统]]
+        Route[[SYS_ROUTE 路线/关卡]]
+    end
+
+    subgraph Social [Social &amp; Relation / 社交与关系模块]
+        Match[[匹配/路人（预留 SYS_MATCH）]]
+        Relation[[SYS_RELATION 关系系统]]
+        Buddy[[挚友/搭档（关系阶段 2）]]
+    end
+
+    subgraph Content [Content / 情境与内容模块]
+        Situation[[SYS_SITUATION 双人/多人情境]]
+        Progress[[SYS_PROGRESS 进度与复活点]]
+    end
+
+    subgraph Support [Support &amp; Environment / 支撑与环境模块]
+        State[[SYS_STATE 状态系统]]
+        Item[[SYS_ITEM 道具系统]]
+        Rope[[SYS_ROPE 绳索与攀登工具]]
+        Env[[SYS_ENV 环境与关卡]]
+    end
+
+    %% 核心循环主干
+    Route --&gt; Climb
+    Climb --&gt; Cooperate
+    Cooperate --&gt; Relation
+    Relation --&gt; Buddy
+    Buddy --&gt; Situation
+    Situation --&gt; Progress
+    Progress --&gt; Route
+
+    %% 支撑系统依赖
+    Env --&gt; Route
+    Env --&gt; State
+    State --&gt; Climb
+    State --&gt; Cooperate
+    Item --&gt; State
+    Item --&gt; Progress
+    Rope --&gt; Climb
+    Rope --&gt; Cooperate
+</code></pre></div>
+<hr />
+<h2 id="2-core-loop-mapping">2. 核心循环映射 (Core Loop Mapping)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">循环步骤 (Step)</th>
+<th style="text-align: left;">关键行为 (Action)</th>
+<th style="text-align: left;">支撑系统 (Primary Systems)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 目标</strong></td>
+<td style="text-align: left;">选路线、组队/匹配</td>
+<td style="text-align: left;">路线/关卡、匹配系统</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 挑战</strong></td>
+<td style="text-align: left;">攀爬、托举/拉拽/借力</td>
+<td style="text-align: left;">攀爬系统、协作系统</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 奖励</strong></td>
+<td style="text-align: left;">到达检查点、情感反馈</td>
+<td style="text-align: left;">关卡进度、关系系统</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. 成长</strong></td>
+<td style="text-align: left;">挚友、解锁情境</td>
+<td style="text-align: left;">关系系统、双人/多人情境</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-system-ecology">3. 系统生态详述 (System Ecology)</h2>
+<h3 id="31-mod_core">3.1 [MOD_CORE] 核心玩法模块</h3>
+<blockquote>
+<p><strong>Design Pillar</strong>: 互助即玩法</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>[SYS_CLIMB] 攀爬系统</strong> (P0)</p>
+<ul>
+<li><strong>Loop Role</strong>: Challenge（核心操作）</li>
+<li><strong>Input</strong>: 路线配置、支点与障碍</li>
+<li><strong>Output</strong>: 位移、状态、成败反馈</li>
+<li><strong>Feature Scope</strong>: 基础攀爬、支点/借力判定；❌ 纯自动寻路登顶</li>
+</ul>
+</li>
+<li>
+<p><strong>[SYS_COOP] 协作系统</strong> (P0)</p>
+<ul>
+<li><strong>Loop Role</strong>: Challenge + Reward（互助行为产生结果与关系）</li>
+<li><strong>Input</strong>: 多人状态、托举/拉拽/借力输入</li>
+<li><strong>Output</strong>: 协作成败、情感反馈（关系权益由玩家消耗资源解锁，非协作产出）</li>
+<li><strong>Feature Scope</strong>: 托举、拉拽、借力等明确操作；❌ 仅表情/站桩无玩法结果</li>
+</ul>
+</li>
+<li>
+<p><strong>[SYS_ROUTE] 路线/关卡系统</strong> (P0)</p>
+<ul>
+<li><strong>Loop Role</strong>: Goal + Source（定义旅途与进度）</li>
+<li><strong>Input</strong>: 关卡配置</li>
+<li><strong>Output</strong>: 攀登进度、情境解锁条件</li>
+<li><strong>Feature Scope</strong>: 单段登山、检查点；<strong>双人必过节点仅出现于隐藏/分支/双人情境，不在主线</strong>；❌ 单人可完全替代协作</li>
+</ul>
+</li>
+</ul>
+<h3 id="32-mod_social">3.2 [MOD_SOCIAL] 社交与关系模块</h3>
+<blockquote>
+<p><strong>Design Pillar</strong>: 双人/多人情境是长期锚点</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>[SYS_RELATION] 关系系统</strong> (P0)</p>
+<ul>
+<li><strong>Loop Role</strong>: Growth</li>
+<li><strong>Input</strong>: 互助行为、共同完成</li>
+<li><strong>Output</strong>: 挚友/搭档、情境解锁权益</li>
+<li><strong>Feature Scope</strong>: 陌生人→挚友进度、固定搭档；❌ 纯数值战力关系</li>
+</ul>
+</li>
+<li>
+<p><strong>[SYS_SITUATION] 双人/多人情境</strong> (P1)</p>
+<ul>
+<li><strong>Loop Role</strong>: Goal &amp; Growth</li>
+<li><strong>Input</strong>: 挚友关系、攀登进度</li>
+<li><strong>Output</strong>: 专属情境内容与记忆点</li>
+<li><strong>Feature Scope</strong>: 仅双人/小队可进入的关卡与情境；❌ 单人可替代</li>
+</ul>
+</li>
+</ul>
+<h3 id="33-mod_economy">3.3 [MOD_ECONOMY] 经济与表现</h3>
+<blockquote>
+<p><strong>Design Pillar</strong>: 情感优先于数值</p>
+</blockquote>
+<ul>
+<li><strong>Demo 阶段</strong>: 无需过度考量经济系统。</li>
+<li><strong>正式版</strong>: 经济系统为重要模块，待细化；<strong>边界</strong>：仅限外观、便捷、非核心；📤 不产出攀爬/协作数值优势；📥 不设 Pay-to-Win 消耗。</li>
+</ul>
+<h3 id="34">3.4 支撑与环境系统补充</h3>
+<ul>
+<li>
+<p><strong>[SYS_STATE] 状态系统</strong> (P0)</p>
+<ul>
+<li><strong>Loop Role</strong>: Challenge（风险与失败条件支撑）</li>
+<li><strong>Priority</strong>: P0</li>
+<li><strong>Input</strong>: 来自「环境与关卡」施加的环境占段（寒冷/中毒/受伤等）、来自「道具系统」的状态变更效果、来自「攀爬与移动」「协作与救援」的体力消耗与受挫事件。</li>
+<li><strong>Output</strong>: Action_Bar 可用体力、各类状态占段（负重/饥饿/受伤/中毒/寒冷等）、生存状态（存活/待救援/死亡），供「攀爬」「协作」「进度与复活点」等系统读取。</li>
+<li><strong>Feature Scope</strong>: ✅ 体力上限成长、状态占段、生存状态流转；❌ 经济资源结算、关系数值或社交逻辑。</li>
+</ul>
+</li>
+<li>
+<p><strong>[SYS_ITEM] 道具系统</strong> (P1)</p>
+<ul>
+<li><strong>Loop Role</strong>: Reward / Growth（通过道具提供风险管理与能力扩展）</li>
+<li><strong>Priority</strong>: P1</li>
+<li><strong>Input</strong>: 玩家背包与物品栏配置、当前状态占段与生存状态、关系权限（谁可对谁使用/取物）。</li>
+<li><strong>Output</strong>: 对状态系统的占段增减（回复/解状态）、对负重占段的计算结果（Weight_Penalty）、少量复活类效果触发「进度与复活点」接口。</li>
+<li><strong>Feature Scope</strong>: ✅ 栏位与背包、负重占段计算、道具类别与使用/放入/丢弃规则、Take_Item 与关系门控；❌ 直接产出攀爬/协作数值优势、独立的经济循环。</li>
+</ul>
+</li>
+<li>
+<p><strong>[SYS_ROPE] 绳索与攀登工具</strong> (P1)</p>
+<ul>
+<li><strong>Loop Role</strong>: Challenge / Cooperation Support（提供协作攀登的工具与风险缓冲）</li>
+<li><strong>Priority</strong>: P1</li>
+<li><strong>Input</strong>: 关系系统提供的系绳权限（需至少「邂逅者」或「同行者」）、关卡中可挂绳表面与锚点配置、道具系统中的绳索/锚点类道具。</li>
+<li><strong>Output</strong>: 新的攀登路径（绳索路径）、多人共绳时的位移与风险联动数据，反馈给「攀爬与移动」与「协作与救援」。</li>
+<li><strong>Feature Scope</strong>: ✅ 系在同一根登山绳索上的行为定义、绳索/锚点等攀登辅助工具与攀爬接口；❌ 匹配/组队逻辑、本身不承载关系阶段与解锁树。</li>
+</ul>
+</li>
+<li>
+<p><strong>[SYS_PROGRESS] 进度与复活点</strong> (P0)</p>
+<ul>
+<li><strong>Loop Role</strong>: Goal / Growth（决定「走到哪儿了」与「从哪儿重新开始」）</li>
+<li><strong>Priority</strong>: P0</li>
+<li><strong>Input</strong>: 来自「环境与关卡」的检查点与营地/祭坛配置、来自「状态系统」的死亡事件、来自「道具系统」的复活类道具使用。</li>
+<li><strong>Output</strong>: 当前有效的复活点位置、已解锁的检查点进度，用于恢复玩家实体与关卡状态；为内容循环提供「一次旅途」的起点与终点。</li>
+<li><strong>Feature Scope</strong>: ✅ 检查点、营地/祭坛复活、稀有复活道具触发的复活途径与进度保存；❌ 关卡内部的具体机关设计、关系解锁树与经济数值。</li>
+</ul>
+</li>
+<li>
+<p><strong>[SYS_ENV] 环境与关卡</strong> (P1)</p>
+<ul>
+<li><strong>Loop Role</strong>: Challenge / Goal（提供地形挑战与路线结构）</li>
+<li><strong>Priority</strong>: P1</li>
+<li><strong>Input</strong>: 关卡配置数据（主线/分支/隐藏路段划分）、环境危害参数（寒冷区、毒区、摔落高度等）、来自「进度与复活点」的检查点与营地位置。</li>
+<li><strong>Output</strong>: 对状态系统施加各类环境占段（寒冷/中毒/受伤等）、提供可攀爬斜面与支点给「攀爬与移动」、在隐藏/分支中布置协作节点给「协作与救援」。</li>
+<li><strong>Feature Scope</strong>: ✅ 环境危害施加来源、主线/分支/隐藏路段划分、协作节点与检查点/营地/祭坛在关卡中的落点；❌ 体力与状态数值计算、关系与经济规则。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>匹配/组队系统说明</strong>：当前版本仅在架构总览中以「匹配/路人」形式出现，尚未单独立项为完整系统；后续若引入正式的匹配/组队机制，将以 <strong>[SYS_MATCH] 匹配/组队系统</strong> 形式单独注册，并补充 Loop Role / Priority / 资源流转等定义。</p>
+</blockquote>
+<hr />
+<h2 id="31-economy-resource-mapping">3.1 资源流转视图 (Economy &amp; Resource Mapping)</h2>
+<blockquote>
+<p><strong>说明</strong>：本节是对《04_ResourceFlow_资源流》的结构化引用，从系统架构角度标注「谁产出 / 谁消耗 / 谁承接池」。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">资源类型</th>
+<th style="text-align: left;">Source 系统 (产出)</th>
+<th style="text-align: left;">Pool (蓄水池)</th>
+<th style="text-align: left;">Sink / Converter (消耗/转换)</th>
+<th style="text-align: left;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">攀登进度</td>
+<td style="text-align: left;">SYS_ROUTE / SYS_PROGRESS</td>
+<td style="text-align: left;">攀登进度</td>
+<td style="text-align: left;">解锁新路线与情境入口（SYS_ROUTE / SYS_SITUATION）</td>
+<td style="text-align: left;">单段旅途完成与检查点绑定</td>
+</tr>
+<tr>
+<td style="text-align: left;">临时增幅（临时翼）</td>
+<td style="text-align: left;">SYS_ROUTE / SYS_ENV</td>
+<td style="text-align: left;">临时增幅 Pool</td>
+<td style="text-align: left;">受挫损失（SYS_STATE / 玩法事件）、周目仪式转换为高级货币</td>
+<td style="text-align: left;">本周期内的体力/行动上限</td>
+</tr>
+<tr>
+<td style="text-align: left;">高级货币</td>
+<td style="text-align: left;">周目仪式（Content Period）</td>
+<td style="text-align: left;">高级货币 Pool</td>
+<td style="text-align: left;">兑换永久增幅与先祖内容</td>
+<td style="text-align: left;">不直接参与关系解锁，避免混淆</td>
+</tr>
+<tr>
+<td style="text-align: left;">永久增幅（永久翼）</td>
+<td style="text-align: left;">兑换处 / 先祖节点</td>
+<td style="text-align: left;">永久增幅 Pool</td>
+<td style="text-align: left;">无显式消耗，仅作为长期能力</td>
+<td style="text-align: left;">不会被玩法事件清空</td>
+</tr>
+<tr>
+<td style="text-align: left;">通用货币 CANDLE</td>
+<td style="text-align: left;">SYS_ROUTE（旅途完成）、SYS_ENV（探索点）、SYS_SITUATION（情境结算）、运营任务（挂 SYS_ROUTE）</td>
+<td style="text-align: left;">CANDLE Pool</td>
+<td style="text-align: left;">关系添加与节点解锁（SYS_RELATION）、外观/非核心内容解锁</td>
+<td style="text-align: left;">明确禁止购买攀爬/协作数值优势</td>
+</tr>
+<tr>
+<td style="text-align: left;">关系节点 (RelationUnlockNode)</td>
+<td style="text-align: left;">SYS_RELATION（消耗 CANDLE）</td>
+<td style="text-align: left;">已解锁关系节点 Pool</td>
+<td style="text-align: left;">解锁对白可见、系绳、双人情境入口（驱动 SYS_SITUATION）</td>
+<td style="text-align: left;">不接受协作次数直接输入</td>
+</tr>
+<tr>
+<td style="text-align: left;">情境/外观解锁</td>
+<td style="text-align: left;">SYS_RELATION / SYS_ROUTE</td>
+<td style="text-align: left;">情境/外观解锁 Pool</td>
+<td style="text-align: left;">情境消耗（一次性或周期性开放）、装扮使用</td>
+<td style="text-align: left;">不影响数值强度</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>闭环检查</strong>：所有被产出的资源均在上表中有对应的 Sink 或 Converter；目前不存在「有产出无消耗」或「有消耗无产出」的已定义资源。</p>
+</blockquote>
+<hr />
+<h2 id="4-pillar-validation">4. 支柱验证矩阵 (Pillar Validation)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">系统 ID</th>
+<th style="text-align: left;">系统名称</th>
+<th style="text-align: center;">互助即玩法<br/>(Pillar 1)</th>
+<th style="text-align: center;">情感优先于数值<br/>(Pillar 2)</th>
+<th style="text-align: center;">双人情境锚点<br/>(Pillar 3)</th>
+<th style="text-align: left;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">SYS_CLIMB</td>
+<td style="text-align: left;">攀爬系统</td>
+<td style="text-align: center;">✅ 核心操作依赖体力与地形</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">为协作提供基础动作空间</td>
+</tr>
+<tr>
+<td style="text-align: left;">SYS_COOP</td>
+<td style="text-align: left;">协作系统</td>
+<td style="text-align: center;">✅ 互助即过关手段</td>
+<td style="text-align: center;">✅ 利他反馈优先于收益</td>
+<td style="text-align: center;">⚪ 间接支撑：为关系与情境提供素材</td>
+<td style="text-align: left;">协作本身不产出数值，仅产出情感体验</td>
+</tr>
+<tr>
+<td style="text-align: left;">SYS_ROUTE</td>
+<td style="text-align: left;">路线/关卡系统</td>
+<td style="text-align: center;">✅ 在主线与分支中布置协作节点</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">⚪ 间接支撑：通过隐藏/分支承载双人路段</td>
+<td style="text-align: left;">主线单人可过，协作集中在隐藏/分支</td>
+</tr>
+<tr>
+<td style="text-align: left;">SYS_STATE</td>
+<td style="text-align: left;">状态系统</td>
+<td style="text-align: center;">⚪ 间接支撑：通过风险与待救援制造互助场景</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">提供「救援/减负」的风险背景</td>
+</tr>
+<tr>
+<td style="text-align: left;">SYS_ITEM</td>
+<td style="text-align: left;">道具系统</td>
+<td style="text-align: center;">⚪ 间接支撑：互相取物/使用道具形成协作</td>
+<td style="text-align: center;">✅ 利他背包与共享资源</td>
+<td style="text-align: center;">⚪ 间接支撑：部分道具围绕双人情境设计</td>
+<td style="text-align: left;">明确禁止数值 P2W，偏情感与协作便捷</td>
+</tr>
+<tr>
+<td style="text-align: left;">SYS_ROPE</td>
+<td style="text-align: left;">绳索与攀登工具</td>
+<td style="text-align: center;">✅ 共绳与绳路为协作关键手段</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">⚪ 间接支撑：双人/多人绳路情境</td>
+<td style="text-align: left;">需关系门控后才能共绳</td>
+</tr>
+<tr>
+<td style="text-align: left;">SYS_ENV</td>
+<td style="text-align: left;">环境与关卡</td>
+<td style="text-align: center;">⚪ 间接支撑：通过环境压迫制造互助需求</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">⚪ 间接支撑：特定情境环境</td>
+<td style="text-align: left;">负责寒冷/中毒/受伤来源与协作节点落点</td>
+</tr>
+<tr>
+<td style="text-align: left;">SYS_PROGRESS</td>
+<td style="text-align: left;">进度与复活点</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">⚪ 间接支撑：双人情境的进度与复活锚点</td>
+<td style="text-align: left;">负责一次旅途与复活体验，不直接塑造协作</td>
+</tr>
+<tr>
+<td style="text-align: left;">SYS_RELATION</td>
+<td style="text-align: left;">关系系统</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">✅ 资源驱动关系进阶</td>
+<td style="text-align: center;">✅ 核心：固定搭档与关系权益</td>
+<td style="text-align: left;">陌生人→同行者路径与关系树解锁</td>
+</tr>
+<tr>
+<td style="text-align: left;">SYS_SITUATION</td>
+<td style="text-align: left;">双人/多人情境</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">✅ 情境优先于数值奖励</td>
+<td style="text-align: center;">✅ 核心长期锚点</td>
+<td style="text-align: left;">双人/小队专属内容与记忆点</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>说明：「⚪ 间接支撑」用于标记<strong>不直接承载该支柱的设计规则，但为其它核心系统提供必要的支撑环境/资源</strong>。其中「协作系统」「关系系统」「双人/多人情境」在 Pillar 3 上为<strong>明确支撑</strong>，是双人情境锚点的主干。</p>
+</blockquote>
+<hr />
+<h2 id="5-development-roadmap-demo">5. 开发规划 (Development Roadmap) — Demo 相关</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">优先级</th>
+<th style="text-align: left;">系统名称</th>
+<th style="text-align: left;">依赖项</th>
+<th style="text-align: left;">预计版本</th>
+<th style="text-align: left;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">攀爬原型</td>
+<td style="text-align: left;">角色与场景</td>
+<td style="text-align: left;">Demo</td>
+<td style="text-align: left;">可玩片段给投资人/团队</td>
+</tr>
+<tr>
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">协作原型</td>
+<td style="text-align: left;">攀爬 + 双人</td>
+<td style="text-align: left;">Demo</td>
+<td style="text-align: left;">托举/拉拽至少一种</td>
+</tr>
+<tr>
+<td style="text-align: left;">P0</td>
+<td style="text-align: left;">单段路线</td>
+<td style="text-align: left;">攀爬+协作</td>
+<td style="text-align: left;">Demo</td>
+<td style="text-align: left;">一段「必须协作才能过」的体验</td>
+</tr>
+<tr>
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">关系树与解锁展示</td>
+<td style="text-align: left;">关系系统</td>
+<td style="text-align: left;">Alpha 后</td>
+<td style="text-align: left;">Demo 可仅展示「结识」概念</td>
+</tr>
+<tr>
+<td style="text-align: left;">P1</td>
+<td style="text-align: left;">双人情境</td>
+<td style="text-align: left;">关系系统</td>
+<td style="text-align: left;">Beta</td>
+<td style="text-align: left;">中后期</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-ecological-health-check">6. 生态健康度检查 (Ecological Health Check)</h2>
+<blockquote>
+<p>对应系统架构师职责中的「断路检测 / 支柱 coverage / 循环闭合」自检。</p>
+</blockquote>
+<h3 id="61-broken-link-audit">6.1 断路检测 (Broken Link Audit)</h3>
+<p><strong>已定义资源的 Source ↔ Sink 对照</strong>（简要摘自 3.1）：</p>
+<ul>
+<li><strong>攀登进度</strong>  </li>
+<li>Source: <code>SYS_ROUTE</code> / <code>SYS_PROGRESS</code>（旅途完成、检查点解锁）  </li>
+<li>Sink/使用: 解锁新路线与情境入口（<code>SYS_ROUTE</code> / <code>SYS_SITUATION</code>）  </li>
+<li>
+<p>结论: ✅ <strong>闭环</strong>，无「只涨不消费」的进度。</p>
+</li>
+<li>
+<p><strong>临时增幅（临时翼）</strong>  </p>
+</li>
+<li>Source: 探索/收集（<code>SYS_ROUTE</code> / <code>SYS_ENV</code>）  </li>
+<li>Sink: 受挫损失（<code>SYS_STATE</code> / 玩法事件）、周目仪式转换为高级货币  </li>
+<li>
+<p>结论: ✅ <strong>闭环</strong>，存在自然损耗与周期性清空。</p>
+</li>
+<li>
+<p><strong>高级货币</strong>  </p>
+</li>
+<li>Source: 周目仪式 / 献祭  </li>
+<li>Sink: 兑换永久增幅与先祖内容  </li>
+<li>
+<p>结论: ✅ <strong>闭环</strong>，无囤积即废弃的状态。</p>
+</li>
+<li>
+<p><strong>永久增幅（永久翼）</strong>  </p>
+</li>
+<li>Source: 兑换处 / 先祖  </li>
+<li>Sink: 无直接消耗，仅作为长期能力池  </li>
+<li>
+<p>结论: ⚪ <strong>长期池</strong>，不需要 Sink，但需在数值设计中控制成长上限。</p>
+</li>
+<li>
+<p><strong>通用货币 CANDLE</strong>  </p>
+</li>
+<li>Source: 单段旅途完成、探索事件、双人/多人情境结算、周期任务  </li>
+<li>Sink: 添加好友、解锁关系节点、外观/非核心内容解锁  </li>
+<li>
+<p>结论: ✅ <strong>闭环</strong>，且 Source 分布在单人与协作路径上，避免单一刷金点。</p>
+</li>
+<li>
+<p><strong>关系节点 (RelationUnlockNode)</strong>  </p>
+</li>
+<li>Source: 消耗 CANDLE 进行解锁（<code>SYS_RELATION</code>）  </li>
+<li>Sink/使用: 解锁对白可见、系绳、双人情境入口等权益  </li>
+<li>结论: ✅ <strong>闭环</strong>，权益均有明确使用场景。</li>
+</ul>
+<blockquote>
+<p>当前版本未发现需要立即处理的「有产出无消耗」或「有消耗无产出」资源节点；后续新增资源时需同步更新 3.1 与本小节。</p>
+</blockquote>
+<h3 id="62-coverage-pillar-coverage">6.2 支柱 coverage (Pillar Coverage)</h3>
+<p>结合第 4 节支柱验证矩阵，概览如下：</p>
+<ul>
+<li><strong>Pillar 1「互助即玩法」</strong>  </li>
+<li>强支撑: <code>SYS_CLIMB</code>、<code>SYS_COOP</code>、<code>SYS_ROUTE</code>  </li>
+<li>间接支撑: <code>SYS_STATE</code>（风险与待救援）、<code>SYS_ITEM</code>（利他背包）、<code>SYS_ROPE</code>（共绳与绳路）、<code>SYS_ENV</code>（环境压迫与协作节点落点）  </li>
+<li>
+<p>结论: ✅ 支柱 1 在核心玩法模块与支撑模块中均有覆盖。</p>
+</li>
+<li>
+<p><strong>Pillar 2「情感优先于数值」</strong>  </p>
+</li>
+<li>强支撑: <code>SYS_COOP</code>（利他反馈）、<code>SYS_RELATION</code>（资源驱动关系进阶）、<code>SYS_SITUATION</code>（情境优先）  </li>
+<li>间接支撑: <code>SYS_ITEM</code>（限制为外观与便捷、协作便捷）、<code>SYS_ECONOMY</code>（正式版边界）  </li>
+<li>
+<p>结论: ✅ 已显式禁止 P2W，经济相关系统均围绕情感与便捷设计。</p>
+</li>
+<li>
+<p><strong>Pillar 3「双人/多人情境是长期锚点」</strong>  </p>
+</li>
+<li>强支撑: <code>SYS_RELATION</code>（固定搭档与关系树）、<code>SYS_SITUATION</code>（双人/多人情境）、<code>SYS_PROGRESS</code>（情境相关进度与复活锚点）  </li>
+<li>间接支撑: <code>SYS_COOP</code>、<code>SYS_ROUTE</code>、<code>SYS_ENV</code>、<code>SYS_ITEM</code>、<code>SYS_ROPE</code>（为双人情境创造素材与环境）  </li>
+<li>结论: ✅ 三大支柱中，Pillar 3 由「关系 + 情境 + 进度」三条主干共同承载，长期锚点明确。</li>
+</ul>
+<h3 id="63-loop-closure-diagram">6.3 循环闭合图 (Loop Closure Diagram)</h3>
+<blockquote>
+<p>基于《03_Loops_核心循环》中的循环图，在本处以系统 ID 的视角重绘一次，用于架构侧对齐。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>stateDiagram-v2
+    direction LR
+    [*] --&gt; SelectRoute: 选路线/匹配\n(SYS_ROUTE / SYS_MATCH)
+    SelectRoute --&gt; Climb: 旅途攀爬\n(SYS_CLIMB)
+    Climb --&gt; Coop: 可选互助协作\n(SYS_COOP / SYS_ROPE)
+    Climb --&gt; Solo: 单人完成\n(SYS_CLIMB)
+
+    Coop --&gt; JourneyResult: 成功/失败 → 旅途结果\n(SYS_ROUTE / SYS_STATE)
+    Solo --&gt; JourneyResult
+
+    JourneyResult --&gt; Progress: 攀登进度更新\n(SYS_PROGRESS)
+    Progress --&gt; Relation: 结识与沉淀\n(SYS_RELATION)
+
+    Relation --&gt; Buddy: 成为挚友/固定搭档\n(SYS_RELATION)
+    Buddy --&gt; Situation: 进入双人/多人情境\n(SYS_SITUATION)
+    Situation --&gt; SelectRoute: 返回世界 → 新旅途目标\n(SYS_ROUTE)
+</code></pre></div>
+<blockquote>
+<p>结论：从「选路线 → 攀爬/协作 → 结识与关系 → 双人/多人情境 → 新目标」形成完整闭环；<code>SYS_MATCH</code> 目前仅作为入口预留，不影响循环成立。</p>
+</blockquote>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.path", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
