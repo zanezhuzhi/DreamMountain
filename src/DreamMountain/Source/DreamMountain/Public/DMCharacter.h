@@ -42,6 +42,30 @@ public:
 	/** 松开 Shift 退出奔跑 */
 	void StopRun();
 
+	/** 当前体力（用于 UI） */
+	UFUNCTION(BlueprintCallable, Category = "DreamMountain|Stamina")
+	float GetCurrentStamina() const { return CurrentStamina; }
+
+	/** 最大体力（用于 UI） */
+	UFUNCTION(BlueprintCallable, Category = "DreamMountain|Stamina")
+	float GetMaxStamina() const;
+
+	/** 体力百分比 [0,1]（用于 UI） */
+	UFUNCTION(BlueprintCallable, Category = "DreamMountain|Stamina")
+	float GetStaminaPercent() const;
+
+	/** 切换到攀爬镜头目标（P0 预留接口） */
+	UFUNCTION(BlueprintCallable, Category = "DreamMountain|Camera")
+	void EnterClimbCamera();
+
+	/** 切回默认镜头目标（P0 预留接口） */
+	UFUNCTION(BlueprintCallable, Category = "DreamMountain|Camera")
+	void ExitClimbCamera();
+
+	/** 调试：切换攀爬镜头目标（默认绑定 C） */
+	UFUNCTION(BlueprintCallable, Category = "DreamMountain|Camera")
+	void ToggleClimbCamera();
+
 	/** 弹簧臂：镜头跟随角色背后，类《光遇》 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "DreamMountain|Camera")
 	TObjectPtr<USpringArmComponent> CameraBoom;
@@ -53,6 +77,34 @@ public:
 	/** 当前体力，策划文档 STAMINA_MAX */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "DreamMountain|Stamina")
 	float CurrentStamina = 100.0f;
+
+	/** 默认视角：弹簧臂长度（MMO 风格，支持编辑器调参） */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DreamMountain|Camera|Tuning")
+	float DefaultCameraArmLength = 700.0f;
+
+	/** 默认视角：镜头偏移（默认 Y=0，不使用 OTS） */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DreamMountain|Camera|Tuning")
+	FVector DefaultCameraOffset = FVector(0.0f, 0.0f, 80.0f);
+
+	/** 默认视角 FOV */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DreamMountain|Camera|Tuning")
+	float DefaultCameraFOV = 90.0f;
+
+	/** 攀爬视角：弹簧臂长度（拉近） */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DreamMountain|Camera|Tuning")
+	float ClimbCameraArmLength = 450.0f;
+
+	/** 攀爬视角：镜头偏移 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DreamMountain|Camera|Tuning")
+	FVector ClimbCameraOffset = FVector(0.0f, 0.0f, 100.0f);
+
+	/** 攀爬视角 FOV */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DreamMountain|Camera|Tuning")
+	float ClimbCameraFOV = 85.0f;
+
+	/** 相机过渡速度（Tick 中 FInterpTo 使用） */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "DreamMountain|Camera|Tuning")
+	float CameraTransitionSpeed = 6.0f;
 
 	virtual void Tick(float DeltaTime) override;
 
@@ -66,4 +118,9 @@ protected:
 private:
 	/** 是否处于奔跑状态 */
 	bool bIsRunning = false;
+
+	/** 当前是否处于“攀爬镜头目标态” */
+	bool bUseClimbCamera = false;
+
+	void UpdateCameraTransition(float DeltaTime);
 };
