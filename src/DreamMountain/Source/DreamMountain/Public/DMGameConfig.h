@@ -13,9 +13,21 @@ namespace DMConfig
 	constexpr float STAMINA_COST_RUN = 15.0f; // 奔跑每秒消耗（对应 STAMINA_COST_RUN_PER_SEC）
 	constexpr float STAMINA_REGEN = 5.0f;     // 静止/行走时每秒恢复
 
-	// --- 镜头 (Camera) ---
-	constexpr float CAMERA_ARM_LENGTH = 300.0f;       // 弹簧臂长度，背后距离
-	constexpr float CAMERA_RELATIVE_Z = 80.0f;        // 镜头相对高度
+	// --- 镜头 (Camera / P0) ---
+	// 默认采用 MMO 风格长距离视角；攀爬态拉近。
+	constexpr float CAMERA_DEFAULT_ARM_LENGTH = 700.0f;
+	constexpr float CAMERA_DEFAULT_OFFSET_X = 0.0f;
+	constexpr float CAMERA_DEFAULT_OFFSET_Y = 0.0f;
+	constexpr float CAMERA_DEFAULT_OFFSET_Z = 80.0f;
+	constexpr float CAMERA_DEFAULT_FOV = 90.0f;
+
+	constexpr float CAMERA_CLIMB_ARM_LENGTH = 450.0f;
+	constexpr float CAMERA_CLIMB_OFFSET_X = 0.0f;
+	constexpr float CAMERA_CLIMB_OFFSET_Y = 0.0f;
+	constexpr float CAMERA_CLIMB_OFFSET_Z = 100.0f;
+	constexpr float CAMERA_CLIMB_FOV = 85.0f;
+
+	constexpr float CAMERA_TRANSITION_SPEED = 6.0f;
 
 	// --- 攀爬 (Climbing) ---
 	// 将来如果有攀爬参数，也都加在这里
