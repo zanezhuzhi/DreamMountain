@@ -64,7 +64,7 @@ void ADMCharacter::StartRun()
 	// 力竭时不允许进入奔跑（策划 4.1 表格：前置条件 体力 > 0）
 	if (CurrentStamina <= 0.0f) { return; }
 	// 首帧扣除：策划 4.3 规定，进入奔跑时立即扣一次每秒消耗
-	CurrentStamina -= DMConfig::STAMINA_COST_RUN_PER_SEC;
+	CurrentStamina -= DMConfig::STAMINA_COST_RUN;
 	CurrentStamina = FMath::Max(0.0f, CurrentStamina);
 	bIsRunning = true;
 	GetCharacterMovement()->MaxWalkSpeed = DMConfig::RUN_SPEED;
@@ -92,13 +92,13 @@ void ADMCharacter::Tick(float DeltaTime)
 	if (bIsRunning && bMoving)
 	{
 		// 持续消耗：奔跑且移动时按 DeltaTime 扣除
-		const float Cost = DMConfig::STAMINA_COST_RUN_PER_SEC * DeltaTime;
+		const float Cost = DMConfig::STAMINA_COST_RUN * DeltaTime;
 		CurrentStamina = FMath::Max(0.0f, CurrentStamina - Cost);
 	}
 	else
 	{
 		// 恢复机制：静止或行走时每秒恢复
-		const float Recover = DMConfig::STAMINA_RECOVER_PER_SEC * DeltaTime * GetEncumbranceModifier();
+		const float Recover = DMConfig::STAMINA_REGEN * DeltaTime * GetEncumbranceModifier();
 		CurrentStamina = FMath::Min(DMConfig::STAMINA_MAX, CurrentStamina + Recover);
 	}
 
